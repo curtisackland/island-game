@@ -1,9 +1,9 @@
-island-game: main.o
-	g++ main.o -o island-game -lsfml-graphics -lsfml-window -lsfml-system
+island-game: src/main.o
+	g++ src/main.o -o island-game -lsfml-graphics -lsfml-window -lsfml-system
 
-main.o: main.cpp
-	g++ -c main.cpp	
+main.o: src/main.cpp
+	g++ -c src/main.cpp	
 
 clean:
-	rm *.o island-game
+	rm src/*.o island-game
 
