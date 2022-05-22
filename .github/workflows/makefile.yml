@@ -11,7 +11,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      
-    - name: Install dependencies
+
+    - name: Install libraries
+      run: apt install libsfml-dev
+
+    - name: Build app
       run: make
+
     - run: echo "App built successfully"
