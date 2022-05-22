@@ -1,0 +1,22 @@
+- [ ] Set up environment
+    - [x] Makefile
+    - [ ] Folder structure
+- [ ] Figure out how to draw
+- [ ] Figure out how to get user input
+- [ ] Figure out how to move shapes around based on input
+- [ ] Screen size (fullscreen/scaling)
+- [ ] Make a config file 
+    - [ ] Singleton class that opens a config file to hold game settings
+- [ ] Tile system
+    - [ ] Generation
+- [ ] Entities
+    - [ ] Enemy attack system
+    - [ ] Pathfinding
+- [ ] Player Attack system
+- [ ] Level/Map system
+    - [ ] Surface
+    - [ ] Caves
+    - [ ] Cave entrance 
+- [ ] Sleeping to re-generate caves
+
+[x]
