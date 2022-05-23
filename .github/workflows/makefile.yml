@@ -16,10 +16,10 @@ jobs:
       run: sudo apt install -y libsfml-dev libboost-all-dev
 
     - name: Build app
-      run: make
+      run: make -j
 
     - name: Build tests
-      run: make test-suite
+      run: make test-suite -j
 
     - name: Run tests
       run: ./test-suite
