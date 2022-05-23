@@ -7,6 +7,14 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1600, 900), "My window");
     sf::CircleShape shape(50.f);
 
+    sf::Texture spriteTexture;
+    if (!spriteTexture.loadFromFile("test1.png"))
+    {
+        // error...
+        printf("weird\n");
+    }
+    const sf::Texture *texture = &spriteTexture;
+    shape.setTexture(texture);
     // set the shape color to green
     shape.setFillColor(sf::Color(100, 250, 50));
     // run the program as long as the window is open
