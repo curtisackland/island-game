@@ -25,7 +25,9 @@ int main()
                 
                 // key pressed
                 //case sf::Event::KeyPressed:
-                    
+
+                default:
+                    break;
             }
         }
 
