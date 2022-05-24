@@ -1,11 +1,12 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <stdio.h>
 
 int main()
 {
     // create the window
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "My window");
-    sf::CircleShape shape(50.f);
+    sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "My window", sf::Style::Fullscreen);
+    sf::CircleShape shape(200.f);
 
     sf::Texture spriteTexture;
     if (!spriteTexture.loadFromFile("test1.png"))
@@ -13,10 +14,18 @@ int main()
         // error...
         printf("weird\n");
     }
-    const sf::Texture *texture = &spriteTexture;
+    sf::Texture *texture = &spriteTexture;
+    //texture->setSmooth(true);
     shape.setTexture(texture);
+
+    sf::Image *image = new sf::Image();
+    
+    if(!image->loadFromFile("master.png")){
+        printf("weird2\n");
+    }
+    texture->update(*image,  100, 100);
     // set the shape color to green
-    shape.setFillColor(sf::Color(100, 250, 50));
+    shape.setFillColor(sf::Color(255, 255, 255));
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -85,16 +94,3 @@ int main()
 
     return 0;
 }
-
-/*
-        sf::Texture spriteTexture;
-        if (!spriteTexture.loadFromFile("test1.png"))
-        {
-            // error...
-        }
-        
-        sf::Sprite sprite;
-        sprite.setTexture(spriteTexture);
-
-        window.draw(sprite);
-*/

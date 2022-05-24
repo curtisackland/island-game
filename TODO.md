@@ -1,9 +1,9 @@
-- [ ] Set up environment
+- [x] Set up environment
     - [x] Makefile
-    - [ ] Folder structure
-- [ ] Figure out how to draw
-- [ ] Figure out how to get user input
-- [ ] Figure out how to move shapes around based on input
+    - [X] Folder structure
+- [x] Figure out how to draw
+- [x] Figure out how to get user input
+- [x] Figure out how to move shapes around based on input
 - [ ] Screen size (fullscreen/scaling)
 - [ ] Make a config file 
     - [ ] Singleton class that opens a config file to hold game settings
