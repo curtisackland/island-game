@@ -19,9 +19,9 @@ jobs:
       run: make -j
 
     - name: Build tests
-      run: make test-suite -j
+      run: make test -j
 
     - name: Run tests
-      run: ./test-suite
+      run: ./test
 
     - run: echo "App built successfully"
