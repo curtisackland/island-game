@@ -12,7 +12,7 @@ test_objs := $(test_source:.cpp=.o)
 island-game: $(game_objs)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(libs) 
 
-test-suite: $(test_objs) $(filter-out src/main.o, $(game_objs))
+test: $(test_objs) $(filter-out src/main.o, $(game_objs))
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(libs) $(test_libs)
 
 all: island-game test-suite

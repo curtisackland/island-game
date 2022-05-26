@@ -4,6 +4,7 @@
 - [x] Figure out how to draw
 - [x] Figure out how to get user input
 - [x] Figure out how to move shapes around based on input
+- [x] Figure out how to do testing with boost
 - [ ] Screen size (fullscreen/scaling)
 - [ ] Make a config file 
     - [ ] Singleton class that opens a config file to hold game settings
