@@ -1,7 +1,12 @@
 CXX=g++
-CXXFLAGS= -g -Wall -Wextra
+CXXFLAGS=-Wall -Wextra
 libs=-lsfml-graphics -lsfml-window -lsfml-system
 test_libs=-lboost_unit_test_framework
+debug_libs=-g
+gprof_libs=-pg -no-pie -fno-builtin
+
+CXXFLAGS+=$(debug_libs) # Comment this out to disable debug libs
+CXXFLAGS+=$(gprof_libs) # Comment this out to disable gprof libs
 
 game_source := $(wildcard src/*.cpp)
 test_source := $(wildcard tests/*.cpp)
@@ -19,4 +24,4 @@ all: island-game test-suite
 
 # Clean
 clean:
-	-rm $(game_objs) $(test_objs) $(game_deps) $(test_deps) island-game test-suite
+	-$(RM) $(game_objs) $(test_objs) island-game test-suite gmon.out
