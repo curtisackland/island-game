@@ -36,3 +36,5 @@
 
 island-game
 test
+libs/*
+!get_libs.sh

@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra
+CXXFLAGS=-Wall -Wextra -Ilibs/boost_1_79_0/
 libs=-lsfml-graphics -lsfml-window -lsfml-system
 test_libs=-lboost_unit_test_framework
 debug_libs=-g
@@ -20,7 +20,7 @@ island-game: $(game_objs)
 test: $(test_objs) $(filter-out src/main.o, $(game_objs))
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(libs) $(test_libs)
 
-all: island-game test-suite
+all: island-game test
 
 # Clean
 clean:
