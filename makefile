@@ -1,10 +1,11 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra -Ilibs/boost_1_79_0/
-libs=-lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS=-Wall -Wextra -Ilibs/boost_lib/include
+LDFLAGS=libs/boost_lib/lib/libboost_json.a -lsfml-graphics -lsfml-window -lsfml-system
 test_libs=-lboost_unit_test_framework
 debug_libs=-g
 gprof_libs=-pg -no-pie -fno-builtin
 
+CXXFLAGS+=$(libs)
 CXXFLAGS+=$(debug_libs) # Comment this out to disable debug libs
 CXXFLAGS+=$(gprof_libs) # Comment this out to disable gprof libs
 
@@ -15,10 +16,10 @@ test_objs := $(test_source:.cpp=.o)
 
 # Main targets
 island-game: $(game_objs)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(libs) 
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 test: $(test_objs) $(filter-out src/main.o, $(game_objs))
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(libs) $(test_libs)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(test_libs) $(LDFLAGS)
 
 all: island-game test
 
