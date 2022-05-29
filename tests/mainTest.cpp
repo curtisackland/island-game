@@ -6,13 +6,30 @@
 BOOST_AUTO_TEST_SUITE(GameConfigTest)
 
 BOOST_AUTO_TEST_CASE(GetInstanceTest) {
-    BOOST_REQUIRE(&GameConfig::getInstance());
+    BOOST_REQUIRE_NE(&GameConfig::getInstance(), nullptr);
+}
+
+BOOST_AUTO_TEST_CASE(FileNotAdded, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    BOOST_CHECK_THROW(GameConfig::getInstance().getJsonObject("nofile"), boost::json::string);
+    //BOOST_CHECK_NE(1,2);
+}
+
+BOOST_AUTO_TEST_CASE(FileNotFound, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    GameConfig::getInstance().addFile("");
 }
 
 BOOST_AUTO_TEST_CASE(ReadConfig, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
-
-    BOOST_CHECK(true);
+    GameConfig::getInstance().addFile
 }
+
+BOOST_AUTO_TEST_CASE(ReadConfig, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    GameConfig::getInstance().addFile
+}
+
+BOOST_AUTO_TEST_CASE(ReadConfig, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    GameConfig::getInstance().addFile
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
 
