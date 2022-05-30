@@ -1,43 +1,20 @@
 #include "Game.hpp"
 
 Game::Game(){
+    // Window setup
     this->window = new sf::RenderWindow(sf::VideoMode(1600, 900), "My Game");
-    this->player = new sf::Sprite();
-    //this->player->setOrigin(this->player->getSize().x/2, this->player->getSize().y/2);
-    //this->player->setOutlineColor(sf::Color::Black);
-    //this->player->setOutlineThickness(2.f);
-    this->playerTexture = new sf::Texture();
-    this->playerTexture->loadFromFile("player.png");
-    this->player->setTexture(*this->playerTexture);
-    this->player->setScale((float) ((float) this->window->getSize().x/50)/(float) this->playerTexture->getSize().x, (float) ((float) this->window->getSize().x/50)/(float) this->playerTexture->getSize().x);
+
+    //Player setup
+    this->player = new Player();
+    this->player->setScale((float) ((float) this->window->getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) this->window->getSize().x/50)/(float) this->player->getTextureWidth());
     this->player->setOrigin(this->player->getLocalBounds().width/2, this->player->getLocalBounds().width/2);
+    this->player->setPosition(50, 50);
     
-    this->terrain = new sf::Texture();
-    this->terrain->loadFromFile("grass.png");
+    // Map setup
+    this->island = new IslandMap();
+    this->island->generate(100, 100, this->window);
 
-    this->block = new sf::Texture();
-    this->block->loadFromFile("block.png");
-
-    this->map = new int*[50];
-    this->mapShape = new sf::Sprite**[50];
-    for(int i = 0; i < 50; i++){
-        this->map[i] = new int[50];
-        this->mapShape[i] = new sf::Sprite*[50];
-        for(int j = 0; j < 50; j++){
-            this->mapShape[i][j] = new sf::Sprite();
-            this->mapShape[i][j]->setPosition((float) i * (float) window->getSize().x/this->tileSize, (float) j * (float) window->getSize().x/this->tileSize);
-            int r = std::rand() % 15;
-            if(r == 0){
-                map[i][j] = 1;
-                this->mapShape[i][j]->setTexture(*this->block);
-                this->mapShape[i][j]->setScale((float) ((float) this->window->getSize().x/this->tileSize)/(float) this->block->getSize().x, (float) ((float) this->window->getSize().x/this->tileSize)/(float) this->block->getSize().x); //scaling to make sprites be proper size
-            } else {
-                map[i][j] = 0;
-                this->mapShape[i][j]->setTexture(*this->terrain);
-                this->mapShape[i][j]->setScale((float) ((float) this->window->getSize().x/this->tileSize)/(float) this->terrain->getSize().x, (float) ((float) this->window->getSize().x/this->tileSize)/(float) this->terrain->getSize().x); //scaling to make sprites be proper size
-            }
-        }
-    }
+    // View setup
     this->view = new sf::View();
     this->view->setCenter(this->player->getPosition().x, this->player->getPosition().y);
     this->view->setSize(this->window->getSize().x, this->window->getSize().y);
@@ -72,61 +49,64 @@ void Game::gameLoop(){
 
         // clear the window with black color
         window->clear(sf::Color::Black);
+
+        //TODO When colliding, move as far as possible towards the object
+        //TODO Check all corners for collision not just the center
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
-            // left key is pressed: move our character
-            /*
-            if(this->player->getGlobalBounds().intersects(
-                this->mapShape[(int) floor((this->player->getPosition().x-speed*deltaTime)/this->window->getSize().x * this->tileSize)]
-                [(int) floor((this->player->getPosition().y)/this->window->getSize().x * this->tileSize)]->getGlobalBounds())
-                && this->map[(int) floor((this->player->getPosition().x-speed*deltaTime)/this->window->getSize().x * this->tileSize) - 1]
-                [(int) floor((this->player->getPosition().y)/this->window->getSize().x * this->tileSize)] == 1){
+            int x = (int) floor((this->player->getPosition().x-speed*deltaTime - this->player->getLocalBounds().width/2)/this->window->getSize().x * this->tileSize);
+            int y = (int) floor((this->player->getPosition().y)/this->window->getSize().x * this->tileSize);
+
+            if(this->player->getGlobalBounds().intersects(this->island->getTile(x, y)->getGlobalBounds()) 
+                && !this->island->getTile(x, y)->isWalkable()){
                 printf("worked!\n");
             } else {
                 this->player->setPosition(this->player->getPosition().x - speed*deltaTime, this->player->getPosition().y);
             }
-            */
-           this->player->setPosition(this->player->getPosition().x - speed*deltaTime, this->player->getPosition().y);
-            
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            // left key is pressed: move our character
-            this->player->setPosition(this->player->getPosition().x + speed*deltaTime, this->player->getPosition().y);
+            int x = (int) floor((this->player->getPosition().x + speed*deltaTime + this->player->getLocalBounds().width/2)/this->window->getSize().x * this->tileSize);
+            int y = (int) floor((this->player->getPosition().y)/this->window->getSize().x * this->tileSize);
+
+            if(this->player->getGlobalBounds().intersects(this->island->getTile(x, y)->getGlobalBounds()) 
+                && !this->island->getTile(x, y)->isWalkable()){
+                printf("worked!\n");
+            } else {
+                this->player->setPosition(this->player->getPosition().x + speed*deltaTime, this->player->getPosition().y);
+            }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
-            // left key is pressed: move our character
-            this->player->setPosition(this->player->getPosition().x, this->player->getPosition().y - speed*deltaTime);
+            int x = (int) floor((this->player->getPosition().x)/this->window->getSize().x * this->tileSize);
+            int y = (int) floor((this->player->getPosition().y - speed*deltaTime - this->player->getLocalBounds().height/2)/this->window->getSize().x * this->tileSize);
+
+            if(this->player->getGlobalBounds().intersects(this->island->getTile(x, y)->getGlobalBounds()) 
+                && !this->island->getTile(x, y)->isWalkable()){
+                printf("worked!\n");
+            } else {
+                this->player->setPosition(this->player->getPosition().x, this->player->getPosition().y - speed*deltaTime);
+            }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            // left key is pressed: move our character
-            this->player->setPosition(this->player->getPosition().x, this->player->getPosition().y + speed*deltaTime);
+            int x = (int) floor((this->player->getPosition().x)/this->window->getSize().x * this->tileSize);
+            int y = (int) floor((this->player->getPosition().y + speed*deltaTime + this->player->getLocalBounds().height/2)/this->window->getSize().x * this->tileSize);
+
+            if(this->player->getGlobalBounds().intersects(this->island->getTile(x, y)->getGlobalBounds()) 
+                && !this->island->getTile(x, y)->isWalkable()){
+                printf("worked!\n");
+            } else {
+                this->player->setPosition(this->player->getPosition().x, this->player->getPosition().y + speed*deltaTime);
+            }
         }
 
-        
         // draw everything here...
-        // window.draw(...);
 
         this->view->setCenter(this->player->getPosition().x, this->player->getPosition().y);
         this->window->setView(*this->view);
 
-
-        float temp = this->clock.getElapsedTime().asSeconds();
-        for(int i = 0; i < 30; i++){
-            for(int j = 0; j < 17; j++){
-                this->window->draw(*this->mapShape[i][j]);
-                
-                if(map[i][j] == 1){
-                    if(this->player->getGlobalBounds().intersects(this->mapShape[i][j]->getGlobalBounds())){
-                        //printf("collision!\n");
-                        //return;
-                    }
-                }
-                
-            }
-        }
+        this->drawMap(); //Draws visible tiles of the map
         
         float rot = 180 - atan2(sf::Mouse::getPosition(*this->window).x - (float) this->window->getSize().x/2, sf::Mouse::getPosition(*this->window).y - (float) this->window->getSize().y/2) * (180/M_PI);
         this->player->setRotation(rot);
@@ -135,5 +115,30 @@ void Game::gameLoop(){
         
         // end the current frame
         this->window->display();
+    }
+}
+
+void Game::drawMap(){
+    int left = (int) floor((this->player->getPosition().x - this->window->getSize().x/2)/this->window->getSize().x * this->tileSize) - 1; //bounds of the map to be drawn
+    int right = (int) floor((this->player->getPosition().x + this->window->getSize().x/2)/this->window->getSize().x * this->tileSize) + 1;
+    int top = (int) floor((this->player->getPosition().y - this->window->getSize().y/2)/this->window->getSize().x * this->tileSize) - 1;
+    int bottom = (int) floor((this->player->getPosition().y + this->window->getSize().y/2)/this->window->getSize().x * this->tileSize) + 1;
+    if(left < 0){
+        left = 0;
+    }
+    if(right > this->island->getWidth()){
+        right = this->island->getWidth();
+    }
+    if(top < 0){
+        top = 0;
+    }
+    if(bottom > this->island->getHeight()){
+        bottom = this->island->getHeight();
+    }
+
+    for(int i = left; i < right; i++){
+        for(int j = top; j < bottom; j++){
+            this->window->draw(*(this->island->getTile(i, j)));
+        }
     }
 }
