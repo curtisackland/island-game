@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra -Ilibs/boost_lib/include
+CXXFLAGS=-Wall -Wextra -Isrc -Itests -Ilibs/boost_lib/include
 LDFLAGS=libs/boost_lib/lib/libboost_json.a -lsfml-graphics -lsfml-window -lsfml-system
 test_libs=-lboost_unit_test_framework
 debug_libs=-g
@@ -25,4 +25,4 @@ all: island-game test
 
 # Clean
 clean:
-	-$(RM) $(game_objs) $(test_objs) island-game test-suite gmon.out
+	-$(RM) $(game_objs) $(test_objs) island-game test gmon.out

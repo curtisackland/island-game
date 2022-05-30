@@ -8,17 +8,17 @@ class GameConfig {
         GameConfig();
         ~GameConfig();
         static GameConfig *self;
-        std::unordered_map<boost::json::string, boost::json::object*> *configFiles;
+        std::unordered_map<boost::json::string, boost::json::value*> *configFiles;
 
     public:
         static GameConfig& getInstance();
-        boost::json::object const * getJsonObject(boost::json::string const) const;
+        boost::json::value const * getJson(boost::json::string const) const;
         void addFile(boost::json::string);
 
         // WIP
         void forceRead();
         void forceWrite();
-        void getProperty();
-        void setProperty();
+        boost::json::value& getProperty();
+        boost::json::value& setProperty();
 
 };
