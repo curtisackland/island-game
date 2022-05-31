@@ -39,7 +39,7 @@ void GameConfig::addFile(boost::json::string fileName) {
     // Copy the json and convert it to an object so it can be indexed with at(key)
     boost::json::object *json = new boost::json::object(val.as_object());
     this->configFiles->insert({fileName, *json});
-    
+    inFile.close();
 }
 
 GameConfig& GameConfig::getInstance() {

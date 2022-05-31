@@ -23,6 +23,18 @@ test: $(test_objs) $(filter-out src/main.o, $(game_objs))
 
 all: island-game test
 
+.PHONY: docs
+docs:
+	doxygen dox.config
+
 # Clean
+.PHONY: clean
 clean:
 	-$(RM) $(game_objs) $(test_objs) island-game test gmon.out
+
+.PHONY: clean-docs
+clean-docs:
+	-$(RM) -r docs/html docs/latex
+
+.PHONY: clean-all
+clean-all: clean clean-docs
