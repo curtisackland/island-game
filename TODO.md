@@ -8,8 +8,9 @@
 - [x] Figure out how to do testing with boost
 - [ ] Screen size (fullscreen/scaling)
 - [ ] Make a config file 
-    - [ ] Singleton class that opens a config file to hold game settings
-    - [ ] Decide which library/file format to use for the file
+    - [x] Singleton class that opens a config file to hold game settings
+    - [x] Decide which library/file format to use for the file
+    - [ ] (optional) Make properties writable
 - [ ] Tile system
     - [ ] Generation
 - [ ] Entities
