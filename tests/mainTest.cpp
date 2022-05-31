@@ -1,6 +1,6 @@
 #define BOOST_TEST_MODULE MainTests
 #include <boost/test/included/unit_test.hpp>
-#include "GameConfig.hpp"
+#include "../mainTest.hpp"
 // Docs: https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/index.html
 
 BOOST_AUTO_TEST_SUITE(GameConfigTest)
@@ -11,11 +11,10 @@ BOOST_AUTO_TEST_CASE(GetInstanceTest) {
 
 BOOST_AUTO_TEST_CASE(FileNotAdded, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
     BOOST_CHECK_THROW(GameConfig::getInstance().getJson("nofile"), std::out_of_range);
-    //BOOST_CHECK_NE(1,2);
 }
 
 BOOST_AUTO_TEST_CASE(FileNotFound, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
-    BOOST_CHECK_THROW(GameConfig::getInstance().addFile(""), boost::wrapexcept<boost::system::system_error>);
+    BOOST_CHECK_THROW(GameConfig::getInstance().addFile("tests/notFound.json"), boost::wrapexcept<boost::system::system_error>);
 }
 
 BOOST_AUTO_TEST_CASE(AddFile, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
@@ -30,15 +29,45 @@ BOOST_AUTO_TEST_CASE(ReadConfig, * boost::unit_test::depends_on("GameConfigTest/
     GameConfig::getInstance().forceRead();
 }
 
-BOOST_AUTO_TEST_CASE(ReadProperty, * boost::unit_test::depends_on("GameConfigTest/AddFile")) {
-    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json")["testNumber"], (boost::json::number)1);
-    //GameConfig::getInstance().getProperty();
+BOOST_AUTO_TEST_CASE(ReadPropertyInteger, * boost::unit_test::depends_on("GameConfigTest/AddFile")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json").at("testInteger"), 1);
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json").at("testInteger").as_int64(), 1);
 }
 
-BOOST_AUTO_TEST_CASE(ChangeProperty, * boost::unit_test::depends_on("GameConfigTest/AddFile")) {
-
+BOOST_AUTO_TEST_CASE(ReadPropertyDouble, * boost::unit_test::depends_on("GameConfigTest/AddFile")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json").at("testDouble"), 1.5);
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json").at("testDouble").as_double(), 1.5);
 }
 
+BOOST_AUTO_TEST_CASE(ReadPropertyString, * boost::unit_test::depends_on("GameConfigTest/AddFile")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json").at("testString"), "Hello");
+}
+
+BOOST_AUTO_TEST_CASE(ReadPropertyObject, * boost::unit_test::depends_on("GameConfigTest/AddFile")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig.json").at("testObject").at("objectInteger"), 1);
+}
+
+BOOST_AUTO_TEST_CASE(AddFile2, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    GameConfig::getInstance().addFile("tests/testConfig2.json");
+}
+
+BOOST_AUTO_TEST_CASE(ReadPropertyInteger2, * boost::unit_test::depends_on("GameConfigTest/AddFile2")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig2.json").at("testInteger2"), 1);
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig2.json").at("testInteger2").as_int64(), 1);
+}
+
+BOOST_AUTO_TEST_CASE(ReadPropertyDouble2, * boost::unit_test::depends_on("GameConfigTest/AddFile2")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig2.json").at("testDouble2"), 1.5);
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig2.json").at("testDouble2").as_double(), 1.5);
+}
+
+BOOST_AUTO_TEST_CASE(ReadPropertyString2, * boost::unit_test::depends_on("GameConfigTest/AddFile2")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig2.json").at("testString2"), "Hello");
+}
+
+BOOST_AUTO_TEST_CASE(ReadPropertyObject2, * boost::unit_test::depends_on("GameConfigTest/AddFile2")) {
+    BOOST_CHECK_EQUAL(GameConfig::getInstance().getJson("tests/testConfig2.json").at("testObject2").at("objectInteger2"), 1);
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 
