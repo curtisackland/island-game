@@ -63,7 +63,7 @@ class GameConfig {
          * 
          * @return boost::json::object const& 
          */
-        boost::json::object const & getJson(boost::json::string const fileName) const;
+        boost::json::object const & getJson(boost::json::string const fileName);
 
         /**
          * @brief Add a file to the list of open files.

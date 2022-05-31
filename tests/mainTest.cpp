@@ -10,11 +10,15 @@ BOOST_AUTO_TEST_CASE(GetInstanceTest) {
 }
 
 BOOST_AUTO_TEST_CASE(FileNotAdded, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
-    BOOST_CHECK_THROW(GameConfig::getInstance().getJson("nofile"), std::out_of_range);
+    BOOST_CHECK_THROW(GameConfig::getInstance().getJson("nofile"), std::ifstream::failure);
+}
+
+BOOST_AUTO_TEST_CASE(BadJsonForm, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    BOOST_CHECK_THROW(GameConfig::getInstance().getJson("tests/testConfigBad.json"), std::domain_error);
 }
 
 BOOST_AUTO_TEST_CASE(FileNotFound, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
-    BOOST_CHECK_THROW(GameConfig::getInstance().addFile("tests/notFound.json"), boost::wrapexcept<boost::system::system_error>);
+    BOOST_CHECK_THROW(GameConfig::getInstance().addFile("tests/notFound.json"), std::ifstream::failure);
 }
 
 BOOST_AUTO_TEST_CASE(AddFile, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
