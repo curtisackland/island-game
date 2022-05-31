@@ -1,0 +1,8 @@
+{
+    "testInteger" : 1,
+    "testDouble" : 1.5,
+    "testString" : "Hello",
+    "testObject" : {
+        "objectInteger":1
+    }
+}

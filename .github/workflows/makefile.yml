@@ -12,8 +12,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install libraries
+    - name: Install libraries libssfml-dev libsfml-all-dev
       run: sudo apt install -y libsfml-dev libboost-all-dev
+    
+    - name: Install libs libraries
+      working-directory: ./libs
+      run: ./get_libs.sh
 
     - name: Build app
       run: make -j
