@@ -14,7 +14,11 @@ BOOST_AUTO_TEST_CASE(FileNotAdded, * boost::unit_test::depends_on("GameConfigTes
 }
 
 BOOST_AUTO_TEST_CASE(BadJsonForm, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
-    BOOST_CHECK_THROW(GameConfig::getInstance().getJson("tests/testConfigBad.json"), std::domain_error);
+    BOOST_CHECK_THROW(GameConfig::getInstance().getJson("tests/testConfigBad.json"), boost::wrapexcept<boost::system::system_error>);
+}
+
+BOOST_AUTO_TEST_CASE(BadJsonForm2, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
+    BOOST_CHECK_THROW(GameConfig::getInstance().getJson("tests/testConfigBad2.json"), std::domain_error);
 }
 
 BOOST_AUTO_TEST_CASE(FileNotFound, * boost::unit_test::depends_on("GameConfigTest/GetInstanceTest")) {
