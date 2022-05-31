@@ -1,7 +1,4 @@
 #include "GameConfig.hpp"
-#include "error.h"
-#include <fstream>
-#include <string>
 
 GameConfig* GameConfig::self = nullptr;
 
@@ -51,7 +48,7 @@ GameConfig& GameConfig::getInstance() {
 }
 
 void GameConfig::forceRead() {
-    for (auto& configFile: *(this->configFiles)) {
+    for (auto configFile: *(this->configFiles)) {
         addFile(configFile.first);
     }
 }

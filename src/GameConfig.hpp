@@ -11,6 +11,9 @@
 #pragma once
 #include <boost/json.hpp>
 #include <unordered_map>
+#include <fstream>
+#include <string>
+#include <error.h>
 //#include <boost/json/src.hpp> // research what this does more
 
 /**
