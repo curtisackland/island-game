@@ -7,6 +7,7 @@
 #include "IslandMap.hpp"
 #include "Tile.hpp"
 #include <stdio.h>
+#include "GameConfig.hpp"
 #include <math.h>
 /**
  * @brief Controls the game
