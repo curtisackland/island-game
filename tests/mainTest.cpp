@@ -116,6 +116,22 @@ BOOST_AUTO_TEST_CASE(CheckNotify) {
 
 BOOST_AUTO_TEST_SUITE_END()
 
+BOOST_AUTO_TEST_SUITE(TextureFactoryTestSuite)
+
+BOOST_AUTO_TEST_CASE(LoadTexture) {
+    TextureFactory::getTexture("tests/grass.png");
+}
+
+BOOST_AUTO_TEST_CASE(LoadTextureTwice, * boost::unit_test::depends_on("TextureFactoryTestSuite/LoadTexture")) {
+    TextureFactory::getTexture("tests/grass.png");
+}
+
+BOOST_AUTO_TEST_CASE(LoadSecondTexture, * boost::unit_test::depends_on("TextureFactoryTestSuite/LoadTexture")) {
+    TextureFactory::getTexture("tests/master.png");
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 /*
 Generic test suite template:
 Put the class name + "Test" as the name of the suite

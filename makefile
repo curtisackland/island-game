@@ -7,7 +7,7 @@ gprof_libs=-pg -no-pie -fno-builtin
 
 CXXFLAGS+=$(libs)
 CXXFLAGS+=$(debug_libs) # Comment this out to disable debug libs
-CXXFLAGS+=$(gprof_libs) # Comment this out to disable gprof libs
+#CXXFLAGS+=$(gprof_libs) # Comment this out to disable gprof libs
 
 game_source := $(wildcard src/*.cpp)
 test_source := $(wildcard tests/*.cpp)
