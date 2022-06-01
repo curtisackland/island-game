@@ -14,16 +14,12 @@ Tile::Tile(int id, float x, float y) : sf::Sprite(){
         default:
             break;
     }
-    this->texture = new sf::Texture;
-    if(!this->texture->loadFromFile(tile)){
-        printf("Error loading tile sprite.\n");
-    }
-    this->setTexture(*this->texture);
+    this->setTexture(*(TextureFactory::getTexture("resources/images/" + tile)));
     this->setPosition(x, y);
 }
 
 int Tile::getTextureWidth(){
-    return this->texture->getSize().x;
+    return this->getTexture()->getSize().x;
 }
 
 bool Tile::isWalkable(){

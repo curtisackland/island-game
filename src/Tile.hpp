@@ -1,13 +1,13 @@
 #pragma once
 #include <string.h>
 #include <SFML/Graphics.hpp>
+#include "TextureFactory.hpp"
 /**
  * @brief Controls all attributes of the tile and its sprite
  * 
  */
 class Tile : public sf::Sprite{
     private:
-        sf::Texture* texture; // Texture of the tile
         bool walkable; // Is the tile able to be walked on
     public:
         Tile(int id, float x, float y);
