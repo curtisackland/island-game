@@ -3,6 +3,9 @@ name: Makefile CI
 on:
   pull_request:
     branches: [ main ]
+  
+  # Manually run action
+  workflow_dispatch:
 
 jobs:
   build:
