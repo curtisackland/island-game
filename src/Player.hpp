@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+/**
+ * @brief Controls all attributes of the player and its sprite
+ * 
+ */
 class Player : public sf::Sprite{
     private:
         sf::Texture* texture;
@@ -8,5 +11,5 @@ class Player : public sf::Sprite{
         Player();
         ~Player();
 
-        int getTextureWidth();
+        int getTextureWidth(); // returns the width of the texture
 };
