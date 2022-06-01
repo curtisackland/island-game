@@ -8,11 +8,11 @@ sf::Texture * TextureFactory::getTexture(std::string key) {
         return result->second;
     } else  {
         sf::Texture *texture = new sf::Texture;
-        if(!texture->loadFromFile(key)){
+        if(texture->loadFromFile(key)){
+            TextureFactory::textures.insert(std::pair<std::string, sf::Texture*>(key, texture));
+        } else {
             printf("Error loading sprite.\n");
             throw std::ifstream::failure("Error loading sprite");
-        } else {
-            TextureFactory::textures.insert(std::pair<std::string, sf::Texture*>(key, texture));
         }
         return texture;
     }
