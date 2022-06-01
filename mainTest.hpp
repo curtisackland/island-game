@@ -3,4 +3,5 @@
 #include "src/GameConfig.hpp"
 #include "src/GameEntity.hpp"
 #include "src/GameEvents.hpp"
+#include "src/TextureFactory.hpp"
 #include "tests/GameEntityTest.hpp"

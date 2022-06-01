@@ -1,6 +1,7 @@
 #define BOOST_TEST_MODULE MainTests
 #include <boost/test/included/unit_test.hpp>
 #include "../mainTest.hpp"
+#define SKIP_SFML_TESTS true
 // Docs: https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/index.html
 
 BOOST_AUTO_TEST_SUITE(GameConfigTestSuite)
@@ -112,6 +113,22 @@ BOOST_AUTO_TEST_CASE(CheckNotify) {
     events.notifyAll();
     BOOST_CHECK(entity.getInternalVariable());
     events.removeEntity(&entity);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(TextureFactoryTestSuite, * boost::unit_test::enable_if<!SKIP_SFML_TESTS>())
+
+BOOST_AUTO_TEST_CASE(LoadTexture) {
+    TextureFactory::getTexture("tests/grass.png");
+}
+
+BOOST_AUTO_TEST_CASE(LoadTextureTwice, * boost::unit_test::depends_on("TextureFactoryTestSuite/LoadTexture")) {
+    TextureFactory::getTexture("tests/grass.png");
+}
+
+BOOST_AUTO_TEST_CASE(LoadSecondTexture, * boost::unit_test::depends_on("TextureFactoryTestSuite/LoadTexture")) {
+    TextureFactory::getTexture("tests/master.png");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

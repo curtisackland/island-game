@@ -1,15 +1,11 @@
 #include "Player.hpp"
 
 Player::Player(){
-    this->texture = new sf::Texture();
-    if(!this->texture->loadFromFile("player.png")){
-        printf("Error loading tile sprite.\n");
-    }
-    this->setTexture(*this->texture);
+    this->setTexture(*TextureFactory::getTexture("resources/images/player.png"));
 }
 
 Player::~Player(){}
 
 int Player::getTextureWidth(){
-    return this->texture->getSize().x;
+    return TextureFactory::getTexture("resources/images/player.png")->getSize().x;
 }
