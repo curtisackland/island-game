@@ -1,6 +1,10 @@
 #include "IslandMap.hpp"
 IslandMap::IslandMap() : GameMap(){
-    this->map = new std::vector<std::vector<Tile*>*>;
+    
+}
+
+IslandMap::~IslandMap() {
+    
 }
 
 void IslandMap::generate(int width, int height, sf::RenderWindow *window){

@@ -1,5 +1,13 @@
 #include "GameMap.hpp"
 
+GameMap::GameMap() {
+    this->map = new std::vector<std::vector<Tile*>*>;
+}
+
+GameMap::~GameMap() {
+    delete this->map;
+}
+
 Tile* GameMap::getTile(int x, int y){
     return (*(*this->map)[x])[y];
 }
