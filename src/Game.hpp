@@ -10,7 +10,9 @@
 #include "GameConfig.hpp"
 #include "GameEvents.hpp"
 #include "GameEntity.hpp"
+#include "Enemy.hpp"
 #include <math.h>
+#include <vector>
 /**
  * @brief Controls the game
  * 
@@ -26,11 +28,12 @@ class Game {
         std::vector<GameMap*> maps; // Island map
         int currentMap;
         sf::View* view; // View of the map, focussed on player
-
+        std::vector<Enemy*>* enemies;
     public:
         Game();
         ~Game();
 
         void gameLoop(); // Runs the game
         void drawMap(); // Draws tiles that are in the player's fov
+        std::vector<Enemy*> * spawnEnemiesOnMap(int layer);
 };

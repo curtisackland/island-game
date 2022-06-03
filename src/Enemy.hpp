@@ -3,15 +3,15 @@
 #include "TextureFactory.hpp"
 #include "GameEntity.hpp"
 /**
- * @brief Controls all attributes of the player and its sprite
+ * @brief Controls all attributes of the Enemy and its sprite
  * 
  */
-class Player : public GameEntity, public sf::Sprite{
+class Enemy : public GameEntity, public sf::Sprite{
     private:
 
     public:
-        Player();
-        ~Player();
+        Enemy(int layer);
+        ~Enemy();
 
         int getTextureWidth(); // returns the width of the texture
         void update();

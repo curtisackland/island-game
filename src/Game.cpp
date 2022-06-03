@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game() {
-    this->currentMap = 0;
+    
     // Window setup
     this->window = new sf::RenderWindow(sf::VideoMode(1600, 900), "My Game");
 
@@ -13,11 +13,13 @@ Game::Game() {
     
     // Map setup
     this->maps.push_back(new IslandMap());
-    this->maps.at(currentMap)->generate(50, 50, this->window);
+    this->maps.at(0)->generate(50, 50, this->window);
 
     // View setup
     this->view = new sf::View();
     this->view->setSize(this->window->getSize().x, this->window->getSize().y);
+
+    this->enemies = this->spawnEnemiesOnMap(0);
 }
 
 void Game::gameLoop() {
@@ -62,10 +64,10 @@ void Game::gameLoop() {
             int y1 = (int) floor((this->player->getPosition().y + this->player->getGlobalBounds().width/4)/this->window->getSize().x * this->tileSize);
             int y2 = (int) floor((this->player->getPosition().y - this->player->getGlobalBounds().width/4)/this->window->getSize().x * this->tileSize);
 
-            if((this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x, y1)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x, y1)->isWalkable())
-                || (this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x, y2)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x, y2)->isWalkable())){
+            if((this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x, y1)->isWalkable())
+                || (this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x, y2)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x, y2)->isWalkable())){
 
             }else {
                 this->player->move(-speed*deltaTime, 0);
@@ -77,10 +79,10 @@ void Game::gameLoop() {
             int y1 = (int) floor((this->player->getPosition().y + this->player->getGlobalBounds().width/4)/this->window->getSize().x * this->tileSize);
             int y2 = (int) floor((this->player->getPosition().y - this->player->getGlobalBounds().width/4)/this->window->getSize().x * this->tileSize);
 
-            if((this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x, y1)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x, y1)->isWalkable())
-                || (this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x, y2)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x, y2)->isWalkable())){
+            if((this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x, y1)->isWalkable())
+                || (this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x, y2)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x, y2)->isWalkable())){
 
             } else {
                 this->player->move(speed*deltaTime, 0);
@@ -92,10 +94,10 @@ void Game::gameLoop() {
             int x2 = (int) floor((this->player->getPosition().x - this->player->getGlobalBounds().width/4)/this->window->getSize().x * this->tileSize);
             int y = (int) floor((this->player->getPosition().y - speed*deltaTime - this->player->getGlobalBounds().height/2)/this->window->getSize().x * this->tileSize);
 
-            if((this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x1, y)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x1, y)->isWalkable())
-                || (this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x2, y)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x2, y)->isWalkable())){
+            if((this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x1, y)->isWalkable())
+                || (this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x2, y)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x2, y)->isWalkable())){
             } else {
                 this->player->move(0, -speed*deltaTime);
             }
@@ -106,10 +108,10 @@ void Game::gameLoop() {
             int x2 = (int) floor((this->player->getPosition().x - this->player->getGlobalBounds().width/4)/this->window->getSize().x * this->tileSize);
             int y = (int) floor((this->player->getPosition().y + speed*deltaTime + this->player->getGlobalBounds().height/2)/this->window->getSize().x * this->tileSize);
 
-            if((this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x1, y)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x1, y)->isWalkable())
-                || (this->player->getGlobalBounds().intersects(this->maps.at(currentMap)->getTile(x2, y)->getGlobalBounds()) 
-                && !this->maps.at(currentMap)->getTile(x2, y)->isWalkable())){
+            if((this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x1, y)->isWalkable())
+                || (this->player->getGlobalBounds().intersects(this->maps.at(this->player->getMapLayer())->getTile(x2, y)->getGlobalBounds()) 
+                && !this->maps.at(this->player->getMapLayer())->getTile(x2, y)->isWalkable())){
             } else {
                 this->player->move(0, speed*deltaTime);
             }
@@ -126,7 +128,7 @@ void Game::gameLoop() {
         this->player->setRotation(rot);
         
         this->window->draw(*(this->player));
-        
+        this->window->draw(*(this->enemies->at(0)));
         // end the current frame
         this->window->display();
     }
@@ -140,19 +142,27 @@ void Game::drawMap(){
     if(left < 0){
         left = 0;
     }
-    if(right > this->maps.at(currentMap)->getWidth()){
-        right = this->maps.at(currentMap)->getWidth();
+    if(right > this->maps.at(this->player->getMapLayer())->getWidth()){
+        right = this->maps.at(this->player->getMapLayer())->getWidth();
     }
     if(top < 0){
         top = 0;
     }
-    if(bottom > this->maps.at(currentMap)->getHeight()){
-        bottom = this->maps.at(currentMap)->getHeight();
+    if(bottom > this->maps.at(this->player->getMapLayer())->getHeight()){
+        bottom = this->maps.at(this->player->getMapLayer())->getHeight();
     }
 
     for(int i = left; i < right; i++){
         for(int j = top; j < bottom; j++){
-            this->window->draw(*(this->maps.at(currentMap)->getTile(i, j)));
+            this->window->draw(*(this->maps.at(this->player->getMapLayer())->getTile(i, j)));
         }
     }
+}
+
+std::vector<Enemy*> * Game::spawnEnemiesOnMap(int layer) {
+    std::vector<Enemy*>* ret = new std::vector<Enemy*>;
+    ret->push_back(new Enemy(layer));
+    ret->at(0)->setPosition(300, 300);
+    ret->at(0)->setScale((float) ((float) this->window->getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) this->window->getSize().x/50)/(float) this->player->getTextureWidth());
+    return ret;
 }
