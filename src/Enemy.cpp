@@ -1,7 +1,9 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(int layer){
+Enemy::Enemy(GameEntity* target, std::vector<GameMap*>* maps, int layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/enemy.png"));
+    this->setPathFindingTarget(target);
+    this->maps = maps;
     this->setMapLayer(layer);
 }
 
@@ -14,5 +16,5 @@ int Enemy::getTextureWidth(){
 }
 
 void Enemy::update() {
-
+    // Do pathfinding here
 }

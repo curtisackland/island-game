@@ -29,6 +29,7 @@ class Game {
         int currentMap;
         sf::View* view; // View of the map, focussed on player
         std::vector<Enemy*>* enemies;
+        GameEvents eventSystem;
     public:
         Game();
         ~Game();

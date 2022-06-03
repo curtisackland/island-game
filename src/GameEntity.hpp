@@ -1,5 +1,6 @@
 #pragma once
-class GameEntity {
+#include <SFML/Graphics.hpp>
+class GameEntity : public sf::Sprite {
 public:
     typedef unsigned long long ID_TYPE;
 private:

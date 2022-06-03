@@ -20,6 +20,7 @@ Game::Game() {
     this->view->setSize(this->window->getSize().x, this->window->getSize().y);
 
     this->enemies = this->spawnEnemiesOnMap(0);
+    this->eventSystem.addUpdateEntity(this->enemies->at(0));
 }
 
 void Game::gameLoop() {
@@ -44,6 +45,7 @@ void Game::gameLoop() {
                     break;
             }
         }
+
 
         this->deltaTime = this->clock.restart().asSeconds();
 
@@ -117,6 +119,10 @@ void Game::gameLoop() {
             }
         }
 
+        
+        // Call all update functions on game objects
+        this->eventSystem.notifyAll();
+
         // draw everything here...
 
         this->view->setCenter(this->player->getPosition().x, this->player->getPosition().y);
@@ -161,7 +167,7 @@ void Game::drawMap(){
 
 std::vector<Enemy*> * Game::spawnEnemiesOnMap(int layer) {
     std::vector<Enemy*>* ret = new std::vector<Enemy*>;
-    ret->push_back(new Enemy(layer));
+    ret->push_back(new Enemy(player, &maps, layer));
     ret->at(0)->setPosition(300, 300);
     ret->at(0)->setScale((float) ((float) this->window->getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) this->window->getSize().x/50)/(float) this->player->getTextureWidth());
     return ret;

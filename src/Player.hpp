@@ -6,7 +6,7 @@
  * @brief Controls all attributes of the player and its sprite
  * 
  */
-class Player : public GameEntity, public sf::Sprite{
+class Player : public GameEntity {
     private:
 
     public:
