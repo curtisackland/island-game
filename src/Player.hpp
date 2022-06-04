@@ -6,6 +6,7 @@
 #include "GameState.hpp"
 #include "GameMap.hpp"
 #include "TextureFactory.hpp"
+#include "MainView.hpp"
 #include <math.h>
 /**
  * @brief Controls all attributes of the player and its sprite

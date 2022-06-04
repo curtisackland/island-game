@@ -12,6 +12,7 @@
 #include "GameEntity.hpp"
 #include "Enemy.hpp"
 #include "MainWindow.hpp"
+#include "MainView.hpp"
 #include <math.h>
 #include <vector>
 /**

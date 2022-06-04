@@ -22,9 +22,9 @@ void Player::update() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        int x = (int) floor((this->getPosition().x-speed*GameState::getDeltaTime() - this->getGlobalBounds().width/2)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
+        int x = (int) floor((this->getPosition().x-speed*GameState::getDeltaTime() - this->getGlobalBounds().width/2)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
 
         if((this->getGlobalBounds().intersects(GameState::getMaps()->at(this->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
             && !GameState::getMaps()->at(this->getMapLayer())->getTile(x, y1)->isWalkable())
@@ -37,9 +37,9 @@ void Player::update() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        int x = (int) floor((this->getPosition().x + speed*GameState::getDeltaTime() + this->getGlobalBounds().width/2)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
+        int x = (int) floor((this->getPosition().x + speed*GameState::getDeltaTime() + this->getGlobalBounds().width/2)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
 
         if((this->getGlobalBounds().intersects(GameState::getMaps()->at(this->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
             && !GameState::getMaps()->at(this->getMapLayer())->getTile(x, y1)->isWalkable())
@@ -52,9 +52,9 @@ void Player::update() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int y = (int) floor((this->getPosition().y - speed*GameState::getDeltaTime() - this->getGlobalBounds().height/2)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
+        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int y = (int) floor((this->getPosition().y - speed*GameState::getDeltaTime() - this->getGlobalBounds().height/2)/MainView::getInstance().getSize().x * GameState::getTileSize());
 
         if((this->getGlobalBounds().intersects(GameState::getMaps()->at(this->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
             && !GameState::getMaps()->at(this->getMapLayer())->getTile(x1, y)->isWalkable())
@@ -66,9 +66,9 @@ void Player::update() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
-        int y = (int) floor((this->getPosition().y + speed*GameState::getDeltaTime() + this->getGlobalBounds().height/2)/MainWindow::getInstance().getSize().x * GameState::getTileSize());
+        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/MainView::getInstance().getSize().x * GameState::getTileSize());
+        int y = (int) floor((this->getPosition().y + speed*GameState::getDeltaTime() + this->getGlobalBounds().height/2)/MainView::getInstance().getSize().x * GameState::getTileSize());
 
         if((this->getGlobalBounds().intersects(GameState::getMaps()->at(this->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
             && !GameState::getMaps()->at(this->getMapLayer())->getTile(x1, y)->isWalkable())
