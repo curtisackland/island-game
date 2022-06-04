@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameMap.hpp"
+#include "GameState.hpp"
 class GameEntity : public sf::Sprite {
 public:
     typedef unsigned long long ID_TYPE;

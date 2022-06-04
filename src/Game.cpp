@@ -100,7 +100,7 @@ void Game::drawMap(){
 std::vector<Enemy*> * Game::spawnEnemiesOnMap(int layer) {
     std::vector<Enemy*>* ret = new std::vector<Enemy*>;
     ret->push_back(new Enemy(player, layer));
-    ret->at(0)->setPosition(300, 300);
+    ret->at(0)->setPosition(400, 400);
     ret->at(0)->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
     return ret;
 }
