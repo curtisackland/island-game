@@ -78,6 +78,9 @@ void Player::update() {
             this->move(0, speed*GameState::getDeltaTime());
         }
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+        GameConfig::getInstance().forceRead();
+    }
     this->setRotation(180 - atan2(sf::Mouse::getPosition(MainWindow::getInstance()).x - (float) MainWindow::getInstance().getSize().x/2, sf::Mouse::getPosition(MainWindow::getInstance()).y - (float) MainWindow::getInstance().getSize().y/2) * (180/M_PI));
 }
 
