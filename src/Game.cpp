@@ -11,6 +11,7 @@ Game::Game() {
     this->player->setOrigin(this->player->getLocalBounds().width/2, this->player->getLocalBounds().width/2);
     this->player->setPosition(25, 25);
     this->eventSystem.addUpdateEntity(this->player);
+    this->eventSystem.addDrawEntity(this->player, 0);
     
     // Map setup
     GameState::getMaps()->push_back(new IslandMap());
@@ -22,6 +23,12 @@ Game::Game() {
 
     this->enemies = this->spawnEnemiesOnMap(0);
     this->eventSystem.addUpdateEntity(this->enemies->at(0));
+}
+
+Game::~Game() {
+    delete this->player;
+    delete this->view;
+    delete this->enemies;
 }
 
 void Game::gameLoop() {
@@ -47,14 +54,14 @@ void Game::gameLoop() {
         }
 
         // Call all update functions on game objects
-        this->eventSystem.notifyAll();
 
         // draw everything here...
         MainWindow::getInstance().clear(sf::Color::Black);
 
         this->drawMap(); //Draws visible tiles of the map
         
-        MainWindow::getInstance().draw(*(this->player));
+        this->eventSystem.notifyAll(); // Performs updates and draw calls
+        //MainWindow::getInstance().draw(*(this->player));
         MainWindow::getInstance().draw(*(this->enemies->at(0)));
         
         this->view->setCenter(this->player->getPosition().x, this->player->getPosition().y);

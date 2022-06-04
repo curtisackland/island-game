@@ -3,12 +3,15 @@
 Player::Player(int layer) : GameEntity(layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/player.png"));
     this->setMapLayer(0);
+    this->loadConfigs();
 }
 
-Player::~Player(){}
+Player::~Player() {
+    
+}
 
 int Player::getTextureWidth(){
-    return TextureFactory::getTexture("resources/images/player.png")->getSize().x;
+    return this->getTexture()->getSize().x;
 }
 
 void Player::update() {
@@ -76,4 +79,17 @@ void Player::update() {
         }
     }
     this->setRotation(180 - atan2(sf::Mouse::getPosition(MainWindow::getInstance()).x - (float) MainWindow::getInstance().getSize().x/2, sf::Mouse::getPosition(MainWindow::getInstance()).y - (float) MainWindow::getInstance().getSize().y/2) * (180/M_PI));
+}
+
+void Player::draw() {
+    MainWindow::getInstance().draw(*this);
+}
+
+const boost::json::object& Player::getMyConfigFile() {
+    return GameConfig::getInstance().getJson("resources/configs/player.json");
+}
+
+void Player::loadConfigs() {
+    this->speed = getMyConfigFile().at("speed").as_double();
+    this->setTexture(*TextureFactory::getTexture(this->getMyConfigFile().at("default_texture").as_string().c_str()));
 }

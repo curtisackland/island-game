@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(GameEntityTestSuite)
 
 BOOST_AUTO_TEST_CASE(ConstructorDestructor) {
-    GameEntityTest entity;
+    GameEntityTest entity(0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -92,27 +92,44 @@ BOOST_AUTO_TEST_SUITE(GameEventsTestSuite)
 
 BOOST_AUTO_TEST_CASE(CreateGameEventsWithEntity) {
     GameEvents events;
-    GameEntityTest entity;
+    GameEntityTest entity(0);
     events.addUpdateEntity(&entity);
-    BOOST_CHECK(events.contains(&entity));
-    events.removeEntity(&entity);
+    BOOST_CHECK(events.updateListContains(&entity));
+    events.removeUpdateEntity(&entity);
 }
 
 BOOST_AUTO_TEST_CASE(CheckNoNotify) {
     GameEvents events;
-    GameEntityTest entity;
+    GameEntityTest entity(0);
     events.addUpdateEntity(&entity);
     BOOST_CHECK(!entity.getInternalVariable());
-    events.removeEntity(&entity);
+    events.removeUpdateEntity(&entity);
 }
 
 BOOST_AUTO_TEST_CASE(CheckNotify) {
     GameEvents events;
-    GameEntityTest entity;
+    GameEntityTest entity(0);
     events.addUpdateEntity(&entity);
     events.notifyAll();
     BOOST_CHECK(entity.getInternalVariable());
-    events.removeEntity(&entity);
+    events.removeUpdateEntity(&entity);
+}
+
+BOOST_AUTO_TEST_CASE(CheckNoDrawNotify) {
+    GameEvents events;
+    GameEntityTest entity(0);
+    events.addUpdateEntity(&entity);
+    BOOST_CHECK(!entity.getInternalVariable2());
+    events.removeUpdateEntity(&entity);
+}
+
+BOOST_AUTO_TEST_CASE(CheckDrawNotify) {
+    GameEvents events;
+    GameEntityTest entity(0);
+    events.addDrawEntity(&entity, 0);
+    events.notifyAll();
+    BOOST_CHECK(entity.getInternalVariable2());
+    events.removeDrawEntity(&entity);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
