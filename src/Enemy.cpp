@@ -19,7 +19,7 @@ void Enemy::update() {
 }
 
 void Enemy::draw() {
-    
+    MainWindow::getInstance().draw(*(this));
 }
 
 const boost::json::object& Enemy::getMyConfigFile() {

@@ -23,6 +23,7 @@ Game::Game() {
 
     this->enemies = this->spawnEnemiesOnMap(0);
     this->eventSystem.addUpdateEntity(this->enemies->at(0));
+    this->eventSystem.addDrawEntity(this->enemies->at(0), 0);
 }
 
 Game::~Game() {
@@ -62,7 +63,7 @@ void Game::gameLoop() {
         
         this->eventSystem.notifyAll(); // Performs updates and draw calls
         //MainWindow::getInstance().draw(*(this->player));
-        MainWindow::getInstance().draw(*(this->enemies->at(0)));
+        //MainWindow::getInstance().draw(*(this->enemies->at(0)));
         
         this->view->setCenter(this->player->getPosition().x, this->player->getPosition().y);
         MainWindow::getInstance().setView(*this->view);

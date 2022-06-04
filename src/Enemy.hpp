@@ -4,6 +4,7 @@
 #include "GameEntity.hpp"
 #include "GameMap.hpp"
 #include "GameConfig.hpp"
+#include "MainWindow.hpp"
 #include <vector>
 /**
  * @brief Controls all attributes of the Enemy and its sprite
