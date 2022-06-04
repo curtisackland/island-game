@@ -1,6 +1,7 @@
 #pragma once
 #include "GameMap.hpp"
 #include "Tile.hpp"
+#include "MainWindow.hpp"
 
 class IslandMap : public GameMap{
     private:
@@ -9,5 +10,5 @@ class IslandMap : public GameMap{
         IslandMap();
         ~IslandMap();
 
-        void generate(int width, int height, sf::RenderWindow* window);
+        void generate(int width, int height);
 };

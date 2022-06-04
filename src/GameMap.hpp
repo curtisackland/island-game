@@ -14,7 +14,7 @@ class GameMap{
     public:
         GameMap();
         ~GameMap();
-        virtual void generate(int width, int height, sf::RenderWindow* window) = 0; // Generates the map
+        virtual void generate(int width, int height) = 0; // Generates the map
         virtual Tile* getTile(int x, int y); // gets the tile with index x,y
         virtual void setTile(int x, int y, Tile* tile); // sets the tile at index x,y
         virtual int getWidth(); // returns width of the map

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameMap.hpp"
 class GameEntity : public sf::Sprite {
 public:
     typedef unsigned long long ID_TYPE;
@@ -8,7 +9,7 @@ private:
     ID_TYPE id;
     int currentMap;
 public:
-    GameEntity();
+    GameEntity(int layer);
     ~GameEntity();
     virtual void update() = 0;
     inline ID_TYPE getId() {return this->id;}

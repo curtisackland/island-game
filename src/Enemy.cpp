@@ -1,10 +1,8 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(GameEntity* target, std::vector<GameMap*>* maps, int layer){
+Enemy::Enemy(GameEntity* target, int layer) : GameEntity(layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/enemy.png"));
     this->setPathFindingTarget(target);
-    this->maps = maps;
-    this->setMapLayer(layer);
 }
 
 Enemy::~Enemy(){

@@ -2,8 +2,9 @@
 
 unsigned long long GameEntity::top_id = 0;
 
-GameEntity::GameEntity() {
+GameEntity::GameEntity(int layer) {
     this->id = top_id++;
+    this->setMapLayer(layer);
 }
 
 GameEntity::~GameEntity() {

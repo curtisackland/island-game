@@ -11,6 +11,7 @@
 #include "GameEvents.hpp"
 #include "GameEntity.hpp"
 #include "Enemy.hpp"
+#include "MainWindow.hpp"
 #include <math.h>
 #include <vector>
 /**
@@ -20,12 +21,9 @@
 class Game {
     private:
         const int tileSize = 30; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
-        const float diagonalScalar = sin(45); // Scalar for moving diagonally
-        sf::RenderWindow* window; // The window where the game is played and rendered
         Player* player; // The player
         sf::Clock clock; // Game clock
         float deltaTime; // Time since last frame
-        std::vector<GameMap*> maps; // Island map
         int currentMap;
         sf::View* view; // View of the map, focussed on player
         std::vector<Enemy*>* enemies;

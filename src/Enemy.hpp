@@ -11,9 +11,8 @@
 class Enemy : public GameEntity {
     private:
         GameEntity* pathfindingTarget;
-        std::vector<GameMap*>* maps;
     public:
-        Enemy(GameEntity* target, std::vector<GameMap*>* maps, int layer);
+        Enemy(GameEntity* target, int layer);
         ~Enemy();
 
         int getTextureWidth(); // returns the width of the texture
