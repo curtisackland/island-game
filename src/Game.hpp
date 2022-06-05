@@ -21,7 +21,7 @@
  */
 class Game {
     private:
-        const int tileSize = 30; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
+        const int tilesPerWindowWidth; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
         Player* player; // The player
         sf::Clock clock; // Game clock
         float deltaTime; // Time since last frame

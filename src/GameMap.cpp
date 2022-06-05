@@ -1,12 +1,12 @@
 #include "GameMap.hpp"
 
 GameMap::GameMap() {
-    this->chunkSize = GameConfig::getInstance().getJson("const-settings.json").at("map").at("chunk-size").as_uint64();
+    this->chunkSize = GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("chunk-size").as_uint64();
     this->generationSeed = 1;
 }
 
 GameMap::~GameMap() {
-    delete this->map;
+
 }
 
 Tile* GameMap::getTile(int x, int y) {

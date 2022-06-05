@@ -3,11 +3,12 @@
 #include <vector>
 
 class MapChunk {
-    private:
+private:
     int chunkSize;
     std::vector<Tile> tiles;
-    public:
-    MapChunk();
+    
+public:
+    MapChunk(int x, int y);
     ~MapChunk();
     Tile* getTile(int x, int y);
     void setTile(int x, int y, Tile *tile);

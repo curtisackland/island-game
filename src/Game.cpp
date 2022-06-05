@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() {
+Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double()) {
     
     // Window setup
     MainWindow::getInstance();
@@ -73,10 +73,10 @@ void Game::gameLoop() {
 
 void Game::drawMap(){
     
-    int left = (int) floor((this->player->getPosition().x - MainView::getInstance().getSize().x/2)/MainView::getInstance().getSize().x * this->tileSize) - 1; //bounds of the map to be drawn
-    int right = (int) floor((this->player->getPosition().x + MainView::getInstance().getSize().x/2)/MainView::getInstance().getSize().x * this->tileSize) + 1;
-    int top = (int) floor((this->player->getPosition().y - MainView::getInstance().getSize().y/2)/MainView::getInstance().getSize().x * this->tileSize) - 1;
-    int bottom = (int) floor((this->player->getPosition().y + MainView::getInstance().getSize().y/2)/MainView::getInstance().getSize().x * this->tileSize) + 1;
+    int left = (int) floor((this->player->getPosition().x - MainView::getInstance().getSize().x/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) - 1; //bounds of the map to be drawn
+    int right = (int) floor((this->player->getPosition().x + MainView::getInstance().getSize().x/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) + 1;
+    int top = (int) floor((this->player->getPosition().y - MainView::getInstance().getSize().y/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) - 1;
+    int bottom = (int) floor((this->player->getPosition().y + MainView::getInstance().getSize().y/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) + 1;
     /*
     if(left < 0){
         left = 0;
