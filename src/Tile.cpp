@@ -8,10 +8,12 @@
 #define TILE_SIZE_CONSTRUCTOR MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double()
 
 Tile::Tile(int xIndex, int yIndex) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
+    this->setDefinedTexture(0);
     this->setPosition(xIndex * this->tileSize, yIndex * this->tileSize);
 }
 
 Tile::Tile(float x, float y) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
+    this->setDefinedTexture(0);
     this->setPosition(x, y);
 }
 
@@ -35,6 +37,7 @@ void Tile::setDefinedTexture(int textureNumber) {
             break;
     }
     this->setTexture(*(TextureFactory::getTexture("resources/images/" + tile)));
+    this->setScale((TILE_SIZE_CONSTRUCTOR)/ (TextureFactory::getTexture("resources/images/" + tile)->getSize().x), (TILE_SIZE_CONSTRUCTOR)/(TextureFactory::getTexture("resources/images/" + tile)->getSize().x));
 }
 
 int Tile::getTextureWidth(){

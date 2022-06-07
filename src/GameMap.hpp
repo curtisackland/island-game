@@ -13,12 +13,12 @@ class GameMap{
         //std::vector<std::vector<Tile*>*> *map; // map containing all the tiles
         int generationSeed;
         std::map<std::pair<int, int>, MapChunk*> map;
-        int chunkSize;
+        int const chunkSize;
         int tileSize = 30; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
     public:
         GameMap();
         ~GameMap();
-        virtual void generate(int width, int height) = 0; // Generates the map
+        virtual void generate(int chunkX, int chunkY) = 0; // Generates the map
         virtual Tile* getTile(int x, int y); // gets the tile with index x,y
         virtual void setTile(int x, int y, Tile* tile); // sets the tile at index x,y
         //virtual int getWidth(); // returns width of the map

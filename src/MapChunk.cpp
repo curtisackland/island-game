@@ -1,10 +1,12 @@
 #include "MapChunk.hpp"
 
-MapChunk::MapChunk(int x, int y) {
+MapChunk::MapChunk(int chunkX, int chunkY) {
     // This constructor needs to take in a value for position so that tiles are able to be placed properly
-    this->chunkSize = GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("chunk-size").as_uint64();
-    for (int i = 0; i < this->chunkSize * this->chunkSize; ++i) {
-        this->tiles.push_back(Tile(x * this->chunkSize, y * this->chunkSize));
+    printf("New chunk at %d %d\n", chunkX, chunkY);
+    for (int x = 0; x < this->chunkSize; ++x) {
+        for (int y = 0; y < this->chunkSize; ++y) {
+            tiles[x][y] = new Tile(x + this->chunkSize * chunkX, y + this->chunkSize * chunkY);
+        }
     }
 }
 
@@ -13,7 +15,7 @@ MapChunk::~MapChunk() {
 }
 
 Tile *MapChunk::getTile(int x, int y) {
-
+    return this->tiles[x][y];
 }
 
 void MapChunk::setTile(int x, int y, Tile *tile) {
