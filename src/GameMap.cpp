@@ -26,5 +26,10 @@ Tile* GameMap::getTile(int x, int y) {
 void GameMap::setTile(int x, int y, Tile* tile){
     int chunkX = floor(((float) x) / ((float)this->chunkSize));
     int chunkY = floor(((float) y) / ((float)this->chunkSize));
-    this->map.at(std::pair<int, int>(chunkX, chunkY))->setTile(x % this->chunkSize, y % this->chunkSize, tile);
+    int insideChunkX = x % this->chunkSize;
+    int insideChunkY = y % this->chunkSize;
+
+    insideChunkX += this->chunkSize * (insideChunkX < 0);
+    insideChunkY += this->chunkSize * (insideChunkY < 0);
+    this->map.at(std::pair<int, int>(chunkX, chunkY))->setTile(insideChunkX, insideChunkY, tile);
 }
