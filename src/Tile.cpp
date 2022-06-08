@@ -1,8 +1,30 @@
 #include "Tile.hpp"
 
-Tile::Tile(int id, float x, float y) : sf::Sprite(){
+#define RESOURCES_IMAGES_GRASS 0
+#define RESOURCES_IMAGES_GRASS_PATH "resources/images/grass.png"
+#define RESOURCES_IMAGES_STONE 1
+#define RESOURCES_IMAGES_STONE_PATH "resources/images/stone.png"
+
+#define TILE_SIZE_CONSTRUCTOR MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double()
+
+Tile::Tile(int xIndex, int yIndex) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
+    this->setDefinedTexture(0);
+    this->setPosition(xIndex * this->tileSize, yIndex * this->tileSize);
+}
+
+Tile::Tile(float x, float y) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
+    this->setDefinedTexture(0);
+    this->setPosition(x, y);
+}
+
+Tile::Tile(int id, float x, float y) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
+    this->setDefinedTexture(id);
+    this->setPosition(x, y);
+}
+
+void Tile::setDefinedTexture(int textureNumber) {
     std::string tile = "";
-    switch(id){
+    switch(textureNumber){
         case 0:
             this->walkable = true;
             tile = "grass.png";
@@ -15,7 +37,7 @@ Tile::Tile(int id, float x, float y) : sf::Sprite(){
             break;
     }
     this->setTexture(*(TextureFactory::getTexture("resources/images/" + tile)));
-    this->setPosition(x, y);
+    this->setScale((TILE_SIZE_CONSTRUCTOR)/ (TextureFactory::getTexture("resources/images/" + tile)->getSize().x), (TILE_SIZE_CONSTRUCTOR)/(TextureFactory::getTexture("resources/images/" + tile)->getSize().x));
 }
 
 int Tile::getTextureWidth(){

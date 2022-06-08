@@ -7,18 +7,17 @@ IslandMap::~IslandMap() {
     
 }
 
-void IslandMap::generate(int width, int height){
-    int isStone = false;
-    for(int i = 0; i < width; i++){
-        this->map->push_back(new std::vector<Tile*>);
-        for(int j = 0; j < height; j++){
-            isStone = std::rand() % 15;
-            if(isStone == 0){
-                (*this->map)[i]->push_back(new Tile(1, (float) i * (float) MainWindow::getInstance().getSize().x/this->tileSize, (float) j * (float) MainWindow::getInstance().getSize().x/this->tileSize));
+void IslandMap::generate(int chunkX, int chunkY) {
+    MapChunk *newMapChunk = new MapChunk(chunkX, chunkY);
+    for (int x = 0; x < this->chunkSize; ++x) {
+        for (int y = 0; y < this->chunkSize; ++y) {
+            if ((sqrt((x + chunkX * this->chunkSize) * (x + chunkX * this->chunkSize) + (y + chunkY * this->chunkSize) * (y + chunkY * this->chunkSize))) < 10) {
+                newMapChunk->getTile(x, y)->setDefinedTexture(0);
             } else {
-                (*this->map)[i]->push_back(new Tile(0, (float) i * (float) MainWindow::getInstance().getSize().x/this->tileSize, (float) j * (float) MainWindow::getInstance().getSize().x/this->tileSize));
+                newMapChunk->getTile(x, y)->setDefinedTexture(1);
             }
-            (*(*this->map)[i])[j]->setScale(((float) MainWindow::getInstance().getSize().x/this->tileSize)/(float) (*(*this->map)[i])[j]->getTextureWidth(), ((float) MainWindow::getInstance().getSize().x/this->tileSize)/(float) (*(*this->map)[i])[j]->getTextureWidth());
         }
     }
+
+    this->map.insert(std::pair<std::pair<int, int>, MapChunk*>(std::pair<int, int>(chunkX, chunkY), newMapChunk));
 }

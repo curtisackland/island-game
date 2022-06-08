@@ -10,5 +10,5 @@ class IslandMap : public GameMap{
         IslandMap();
         ~IslandMap();
 
-        void generate(int width, int height);
+        void generate(int chunkX, int chunkY);
 };
