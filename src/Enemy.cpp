@@ -19,9 +19,12 @@ void Enemy::update() {
     float tx = pathfindingTarget->getPosition().x;
     float ty = pathfindingTarget->getPosition().y;
 
+    int targetTileX = pathfindingTarget->getPosition().x/MainView::getInstance().getSize().x * GameState::getTileSize();
+    int targetTileY = pathfindingTarget->getPosition().y/MainView::getInstance().getSize().x * GameState::getTileSize();
+
     float rot = M_PI - atan2(tx - this->getPosition().x, ty - this->getPosition().y);
     
-    printf("%f\n", rot);
+    //printf("%f\n", rot);
     //printf("x: %f, y: %f\n", GameState::getDeltaTime()*this->speed*cos(rot), GameState::getDeltaTime()*this->speed*sin(rot));
     this->move(GameState::getDeltaTime()*this->speed*sin(rot), -GameState::getDeltaTime()*this->speed*cos(rot));
     this->setRotation(rot * (180/M_PI));
