@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameMap.hpp"
+
+class GameEvents;
+
 class GameEntity : public sf::Sprite {
 public:
     typedef unsigned long long ID_TYPE;
@@ -8,6 +11,7 @@ private:
     static ID_TYPE top_id;
     ID_TYPE id;
     int drawLayer;
+    GameEvents *eventParent;
 protected:
     int currentMap;
     float speed;

@@ -1,8 +1,8 @@
 #pragma once
 #include <map>
 #include <unordered_map>
-#include "GameEntity.hpp"
 
+class GameEntity;
 
 class GameEvents {
 public:
@@ -29,4 +29,5 @@ public:
     
 
     void notifyAll();
+    void removeFromAll(GameEntity *entity);
 };

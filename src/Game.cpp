@@ -18,10 +18,8 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     
     // Map setup
     GameState::getMaps()->push_back(new IslandMap());
-    GameState::getMaps()->at(GameState::getCurrentMap())->generate(50, 50);
 
-    
-
+    // Enemy
     this->enemies = this->spawnEnemiesOnMap(0);
     this->eventSystem.addUpdateEntity(this->enemies->at(0));
     this->eventSystem.addDrawEntity(this->enemies->at(0), 0);

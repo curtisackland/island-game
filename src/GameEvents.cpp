@@ -1,3 +1,4 @@
+#include "GameEntity.hpp"
 #include "GameEvents.hpp"
 
 GameEvents::GameEvents() {
@@ -51,4 +52,9 @@ void GameEvents::removeDrawEntity(GameEntity *entity) {
 void GameEvents::notifyAll() {
     this->notifyUpdateEntities();
     this->notifyDrawEntities();
+}
+
+void GameEvents::removeFromAll(GameEntity *entity) {
+    this->removeUpdateEntity(entity);
+    this->removeDrawEntity(entity);
 }
