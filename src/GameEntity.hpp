@@ -25,4 +25,6 @@ public:
     inline int getDrawLayer() {return this->drawLayer;}
     inline void setDrawLayer(int drawLayer) {this->drawLayer = drawLayer;}
     inline void setMapLayer(int newMap) {this->currentMap = newMap;}
+    inline GameEvents *getEventParent() {return eventParent;}
+    inline void setEventParent(GameEvents *eventParent) {this->eventParent = eventParent;}
 };

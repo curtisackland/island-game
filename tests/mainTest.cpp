@@ -132,6 +132,44 @@ BOOST_AUTO_TEST_CASE(CheckDrawNotify) {
     events.removeDrawEntity(&entity);
 }
 
+BOOST_AUTO_TEST_CASE(CheckDestroyEntity) {
+    GameEvents events;
+    GameEntityTest* entity = new GameEntityTest(0);
+    events.addUpdateEntity(entity);
+    BOOST_CHECK(events.updateListContains(entity));
+
+    events.notifyUpdateEntities();
+    BOOST_CHECK(entity->getInternalVariable());
+
+    events.removeUpdateEntity(entity);
+    BOOST_CHECK(!events.updateListContains(entity));
+}
+
+BOOST_AUTO_TEST_CASE(CheckDestroyEntities) {
+    GameEvents events;
+    std::vector<GameEntityTest*> *entityVector = new std::vector<GameEntityTest*>();
+    int const testSize = 1000;
+    for (int i = 0; i < testSize; ++i) {
+        entityVector->push_back(new GameEntityTest(0));
+        events.addUpdateEntity(entityVector->back());
+    }
+
+    events.notifyUpdateEntities();
+    for (int i = 0; i < testSize; ++i) {
+        BOOST_CHECK(entityVector->at(i)->getInternalVariable());
+    }
+
+    GameEntityTest* e = entityVector->at(0);
+    for (int i = 0; i < testSize; ++i) {
+        delete entityVector->at(i);
+        entityVector->at(i) = nullptr;
+    }
+    delete entityVector;
+    e->getId();
+    BOOST_CHECK_NO_THROW(events.notifyUpdateEntities());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(TextureFactoryTestSuite, * boost::unit_test::enable_if<!SKIP_SFML_TESTS>())

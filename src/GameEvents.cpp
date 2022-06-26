@@ -11,6 +11,7 @@ GameEvents::~GameEvents() {
 
 void GameEvents::addUpdateEntity(GameEntity *entity) {
     this->updateEntitiesList.insert(std::pair<int, GameEntity*>(entity->getId(), entity));
+    entity->setEventParent(this);
 }
 
 void GameEvents::notifyUpdateEntities() {
@@ -24,13 +25,16 @@ bool GameEvents::updateListContains(GameEntity *entity) {
 }
 
 void GameEvents::removeUpdateEntity(GameEntity *entity) {
-    this->updateEntitiesList.erase(entity->getId());
+    if (this->updateListContains(entity)) {
+        this->updateEntitiesList.erase(entity->getId());
+    }
 }
 
 void GameEvents::addDrawEntity(GameEntity *entity, int layer) {
     this->drawEntitiesList.insert(std::pair<int, UPDATE_ENTITIES_LIST_TYPE>(layer, UPDATE_ENTITIES_LIST_TYPE()));
     this->drawEntitiesList.at(layer).insert(std::pair<int, GameEntity*>(entity->getId(), entity));
     entity->setDrawLayer(layer);
+    entity->setEventParent(this);
 }
 
 void GameEvents::notifyDrawEntities() {
@@ -46,7 +50,9 @@ bool GameEvents::drawListContains(GameEntity *entity) {
 }
 
 void GameEvents::removeDrawEntity(GameEntity *entity) {
-    this->drawEntitiesList.at(entity->getDrawLayer()).erase(entity->getId());
+    if (this->drawListContains(entity)) {
+        this->drawEntitiesList.at(entity->getDrawLayer()).erase(entity->getId());
+    }
 }
 
 void GameEvents::notifyAll() {
