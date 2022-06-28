@@ -188,6 +188,14 @@ BOOST_AUTO_TEST_CASE(LoadSecondTexture, * boost::unit_test::depends_on("TextureF
 
 BOOST_AUTO_TEST_SUITE_END()
 
+BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
+
+BOOST_AUTO_TEST_CASE(GetAValue) {
+    PerlinNoise::perlin(0,0);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 /*
 Generic test suite template:
 Put the class name + "Test" as the name of the suite

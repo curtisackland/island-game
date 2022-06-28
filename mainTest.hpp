@@ -5,3 +5,4 @@
 #include "src/GameEvents.hpp"
 #include "src/TextureFactory.hpp"
 #include "tests/GameEntityTest.hpp"
+#include "src/Noise/PerlinNoise.hpp"
