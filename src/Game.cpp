@@ -17,7 +17,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     this->eventSystem.addDrawEntity(this->player, 0);
     
     // Map setup
-    GameState::getMaps()->push_back(new IslandMap());
+    GameState::getMaps()->push_back(new CaveMap());
 
     // Enemy
     this->enemies = this->spawnEnemiesOnMap(0);

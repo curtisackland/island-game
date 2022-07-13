@@ -191,7 +191,8 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 
 BOOST_AUTO_TEST_CASE(GetAValue) {
-    PerlinNoise::perlin(0,0);
+    Noise2DPerlin n;
+    n.noise(0,0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "GameMap.hpp"
 #include "IslandMap.hpp"
+#include "CaveMap.hpp"
 #include "Tile.hpp"
 #include <stdio.h>
 #include "GameConfig.hpp"

@@ -20,5 +20,5 @@ Tile *MapChunk::getTile(int x, int y) {
 
 void MapChunk::setTile(int x, int y, Tile *tile) {
     assert("Not yet implemented");
-    printf("%d %d %d", x, y, tile);
+    printf("%d %d %ld", x, y, (long) tile);
 }
