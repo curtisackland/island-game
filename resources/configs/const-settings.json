@@ -1,6 +1,6 @@
 {
     "map" : {
         "chunk-size" : 10,
-        "tiles-per-window-width" : 300.0
+        "tiles-per-window-width" : 30.0
     }
 }

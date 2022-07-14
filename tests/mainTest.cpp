@@ -190,9 +190,88 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 
-BOOST_AUTO_TEST_CASE(GetAValue) {
-    Noise2DPerlin n;
-    n.noise(0,0);
+BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
+    sf::Image i;
+    i.create(1920, 1080);
+    Noise2DPerlin noise(0, 1, 0, 255);
+
+    for (unsigned int x = 0; x < i.getSize().x; ++x) {
+        for (unsigned int y = 0; y < i.getSize().y; ++y) {
+            int val = 128 * (noise.noise(((double) x), ((double) y)) + 1);
+            i.setPixel(x, y, sf::Color(val, val, val, 255));
+        }
+    }
+    int fileNumber = -1;
+    std::string fileName;
+    {
+        bool haveNotFoundNextNumber = true;
+        sf::Image testImage;
+        do {
+            ++fileNumber;
+            fileName = "tests/noise_perlin2D" + std::to_string(fileNumber) + ".png";
+            haveNotFoundNextNumber = testImage.loadFromFile(fileName);
+        } while (haveNotFoundNextNumber);
+    }
+    
+    i.saveToFile(fileName);
+}
+
+BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
+    sf::Image i;
+    i.create(1920, 1080);
+    LayeredNoise2D noise(0, 255);
+    //Noise2DPerlin noiseLayer(0, 0.01, 0, 255);
+    std::shared_ptr<Noise2DPerlin> noiseLayer = std::make_shared<Noise2DPerlin>(0, 10, 0, 255);
+    noise.addLayer(noiseLayer);
+
+    for (unsigned int x = 0; x < i.getSize().x; ++x) {
+        for (unsigned int y = 0; y < i.getSize().y; ++y) {
+            int val = 128 * (noise.noise(((double) x), ((double) y)) + 1);
+            i.setPixel(x, y, sf::Color(val, val, val, 255));
+        }
+    }
+    int fileNumber = -1;
+    std::string fileName;
+    {
+        bool haveNotFoundNextNumber = true;
+        sf::Image testImage;
+        do {
+            ++fileNumber;
+            fileName = "tests/noise_single_layered2D" + std::to_string(fileNumber) + ".png";
+            haveNotFoundNextNumber = testImage.loadFromFile(fileName);
+        } while (haveNotFoundNextNumber);
+    }
+    
+    i.saveToFile(fileName);
+}
+
+BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
+    sf::Image i;
+    i.create(1920, 1080);
+    LayeredNoise2D noise(0, 255);
+    //std::shared_ptr<Noise2DPerlin> noiseLayer = std::make_shared<Noise2DPerlin>(0, 10, 0, 1);
+    //noise.addLayer(noiseLayer);
+    std::shared_ptr<Noise2DPerlin> noiseLayer2 = std::make_shared<Noise2DPerlin>(10, 10, 0, 1);
+    noise.addLayer(noiseLayer2);
+    for (unsigned int x = 0; x < i.getSize().x; ++x) {
+        for (unsigned int y = 0; y < i.getSize().y; ++y) {
+            int val = 128 * (noise.noise(((double) x), ((double) y)) + 1);
+            i.setPixel(x, y, sf::Color(val, val, val, 255));
+        }
+    }
+    int fileNumber = -1;
+    std::string fileName;
+    {
+        bool haveNotFoundNextNumber = true;
+        sf::Image testImage;
+        do {
+            ++fileNumber;
+            fileName = "tests/noise_many_layered2D" + std::to_string(fileNumber) + ".png";
+            haveNotFoundNextNumber = testImage.loadFromFile(fileName);
+        } while (haveNotFoundNextNumber);
+    }
+    
+    i.saveToFile(fileName);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

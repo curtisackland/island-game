@@ -39,3 +39,4 @@ test
 docs/*
 libs/*
 !get_libs.sh
+tests/outputs/*

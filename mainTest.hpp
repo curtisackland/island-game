@@ -5,4 +5,6 @@
 #include "src/GameEvents.hpp"
 #include "src/TextureFactory.hpp"
 #include "tests/GameEntityTest.hpp"
+#include "src/Noise/LayeredNoise2D.hpp"
+#include "src/Noise/Noise2D.hpp"
 #include "src/Noise/Noise2DPerlin.hpp"

@@ -31,7 +31,8 @@ void GameEvents::removeUpdateEntity(GameEntity *entity) {
 }
 
 void GameEvents::addDrawEntity(GameEntity *entity, int layer) {
-    this->drawEntitiesList.insert(std::pair<int, UPDATE_ENTITIES_LIST_TYPE>(layer, UPDATE_ENTITIES_LIST_TYPE()));
+    if (this->drawEntitiesList.find(layer) == this->drawEntitiesList.end())
+        this->drawEntitiesList.insert(std::pair<int, UPDATE_ENTITIES_LIST_TYPE>(layer, UPDATE_ENTITIES_LIST_TYPE()));
     this->drawEntitiesList.at(layer).insert(std::pair<int, GameEntity*>(entity->getId(), entity));
     entity->setDrawLayer(layer);
     entity->setEventParent(this);
