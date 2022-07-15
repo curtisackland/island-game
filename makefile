@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra -Isrc -Itests -Ilibs/boost_lib/include
+CXXFLAGS=-std=c++17 -Wall -Wextra -Isrc -Itests -Ilibs/boost_lib/include
 LDFLAGS=libs/boost_lib/lib/libboost_json.a -lsfml-graphics -lsfml-window -lsfml-system
 test_libs=-Llibs/boost_lib/lib -lboost_unit_test_framework
 debug_libs=-g
