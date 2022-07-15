@@ -1,6 +1,6 @@
 #define BOOST_TEST_MODULE MainTests
 #include <boost/test/included/unit_test.hpp>
-#include "../mainTest.hpp"
+#include "mainTest.hpp"
 #define SKIP_SFML_TESTS true
 // Docs: https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/index.html
 
@@ -193,11 +193,11 @@ BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
     sf::Image i;
     i.create(1920, 1080);
-    Noise2DPerlin noise(0, 1, 0, 255);
+    Noise2DPerlin *noise = new Noise2DPerlin(0, 1, 127.5, 127.5);
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
-            int val = 128 * (noise.noise(((double) x), ((double) y)) + 1);
+            int val = noise->noise(((double) x), ((double) y));
             i.setPixel(x, y, sf::Color(val, val, val, 255));
         }
     }
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
         sf::Image testImage;
         do {
             ++fileNumber;
-            fileName = "tests/noise_perlin2D" + std::to_string(fileNumber) + ".png";
+            fileName = "tests/outputs/noise_perlin2D" + std::to_string(fileNumber) + ".png";
             haveNotFoundNextNumber = testImage.loadFromFile(fileName);
         } while (haveNotFoundNextNumber);
     }
@@ -219,14 +219,12 @@ BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
 BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
     sf::Image i;
     i.create(1920, 1080);
-    LayeredNoise2D noise(0, 255);
-    //Noise2DPerlin noiseLayer(0, 0.01, 0, 255);
-    std::shared_ptr<Noise2DPerlin> noiseLayer = std::make_shared<Noise2DPerlin>(0, 10, 0, 255);
-    noise.addLayer(noiseLayer);
+    LayeredNoise2D *noise = new LayeredNoise2D();
+    noise->addLayer(new NoiseBuilder2DPerlin(0, 100, 127.5, 127.5));
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
-            int val = 128 * (noise.noise(((double) x), ((double) y)) + 1);
+            int val = noise->noise(((double) x), ((double) y));
             i.setPixel(x, y, sf::Color(val, val, val, 255));
         }
     }
@@ -237,7 +235,7 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
         sf::Image testImage;
         do {
             ++fileNumber;
-            fileName = "tests/noise_single_layered2D" + std::to_string(fileNumber) + ".png";
+            fileName = "tests/outputs/noise_single_layered2D" + std::to_string(fileNumber) + ".png";
             haveNotFoundNextNumber = testImage.loadFromFile(fileName);
         } while (haveNotFoundNextNumber);
     }
@@ -248,14 +246,13 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
 BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
     sf::Image i;
     i.create(1920, 1080);
-    LayeredNoise2D noise(0, 255);
-    //std::shared_ptr<Noise2DPerlin> noiseLayer = std::make_shared<Noise2DPerlin>(0, 10, 0, 1);
-    //noise.addLayer(noiseLayer);
-    std::shared_ptr<Noise2DPerlin> noiseLayer2 = std::make_shared<Noise2DPerlin>(10, 10, 0, 1);
-    noise.addLayer(noiseLayer2);
+    LayeredNoise2D *noise = new LayeredNoise2D();
+    noise->addLayer(new NoiseBuilder2DPerlin(0, 2, 100, 100)); // 0-200
+    noise->addLayer(new NoiseBuilder2DPerlin(819681, 7, 27.5, 27.5)); // 0-55
+
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
-            int val = 128 * (noise.noise(((double) x), ((double) y)) + 1);
+            int val = 128 * (noise->noise(((double) x), ((double) y)) + 1);
             i.setPixel(x, y, sf::Color(val, val, val, 255));
         }
     }
@@ -266,7 +263,7 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
         sf::Image testImage;
         do {
             ++fileNumber;
-            fileName = "tests/noise_many_layered2D" + std::to_string(fileNumber) + ".png";
+            fileName = "tests/outputs/noise_many_layered2D" + std::to_string(fileNumber) + ".png";
             haveNotFoundNextNumber = testImage.loadFromFile(fileName);
         } while (haveNotFoundNextNumber);
     }

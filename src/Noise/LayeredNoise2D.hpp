@@ -2,14 +2,13 @@
 #include <vector>
 #include <memory>
 #include "Noise2D.hpp"
+#include "NoiseBuilder2D.hpp"
 class LayeredNoise2D {
 private:
-    std::vector<std::shared_ptr<Noise2D>> layerList;
-    double noiseMin;
-    double noiseMax;
+    std::vector<Noise2D*> layerList;
 public:
-    LayeredNoise2D(double noiseMin, double noiseMax);
+    LayeredNoise2D();
     ~LayeredNoise2D();
-    void addLayer(std::shared_ptr<Noise2D> layer);
+    void addLayer(NoiseBuilder2D *layer);
     double noise(double x, double y);
 };
