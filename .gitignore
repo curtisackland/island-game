@@ -32,7 +32,9 @@
 *.app
 
 # VSCode
-*.vscode
+.vscode/*
+!launch.json
+!tasks.json
 
 island-game
 test
