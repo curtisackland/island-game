@@ -32,10 +32,14 @@
 *.app
 
 # VSCode
-*.vscode
+.vscode/*
+!launch.json
+!tasks.json
 
 island-game
 test
 docs/*
 libs/*
 !get_libs.sh
+tests/outputs/*
+!tests/outputs/README.md
