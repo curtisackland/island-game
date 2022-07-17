@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
     sf::Image i;
     i.create(1920, 1080);
-    Noise2DPerlin *noise = new Noise2DPerlin(0, 1, 127.5, 127.5, 0, 0);
+    Noise2DPerlin *noise = new Noise2DPerlin(0, 0.01, 127.5, 127.5, 0, 0);
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
@@ -248,21 +248,40 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
     }
 }
 
+
+// Reference https://www.rapidtables.com/convert/color/hsv-to-rgb.html
 sf::Color hsv(double h, double s, double v) {
-    h = fmod(h, 360.0);
+    h = abs(fmod(h, 360));
+    double c = s * v;
+    double x = c * (1 - abs(fmod(h/60, 2) - 1));
+    double m = v - c;
+    double rPrime, gPrime, bPrime;
     if (0 <= h && h < 60) {
-        return sf::Color(255, h * 255 / 60, 0, 255);
+        rPrime = c;
+        gPrime = x;
+        bPrime = 0;
     } else if (60 <= h && h < 120) {
-        return sf::Color(255 - (h - 60) * 255 / 60, 255, 0, 255);
+        rPrime = x;
+        gPrime = c;
+        bPrime = 0;
     } else if (120 <= h && h < 180) {
-        return sf::Color(0, 255, (h - 120) * 255 / 60, 255);
+        rPrime = 0;
+        gPrime = c;
+        bPrime = x;
     } else if (180 <= h && h < 240) {
-        return sf::Color(0, 255 - (h - 180) * 255 / 60, 255, 255);
+        rPrime = 0;
+        gPrime = x;
+        bPrime = c;
     } else if (240 <= h && h < 300) {
-        return sf::Color((h - 240) * 255 / 60, 0, 255, 255);
+        rPrime = x;
+        gPrime = 0;
+        bPrime = c;
     } else if (300 <= h && h < 360) {
-        return sf::Color(255, 0, 255 - (h - 300) * 255 / 60, 255);
-    }
+        rPrime = c;
+        gPrime = 0;
+        bPrime = x;
+    } 
+    return sf::Color((rPrime + m) * 255, (gPrime + m) * 255, (bPrime + m) * 255);
 }
 
 BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
@@ -279,7 +298,7 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
             double val = abs(420 - 360.0 * noise->noise(((double) x), ((double) y)) / 126.0);
-            i.setPixel(x, y, hsv(val, 255, 255));
+            i.setPixel(x, y, hsv(val, 1, 1));
         }
     }
     if (SAVE_NOISE_IMAGES) {
