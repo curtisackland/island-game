@@ -42,3 +42,4 @@ docs/*
 libs/*
 !get_libs.sh
 tests/outputs/*
+!tests/outputs/README.md

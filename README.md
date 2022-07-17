@@ -1,4 +1,5 @@
 # Island Game
+![Tests](https://github.com/curtisackland/island-game/actions/workflows/makefile.yml/badge.svg)
 ## Island Game is a 2D top down survival game.
 
 ### Description:
