@@ -11,8 +11,8 @@
     - [x] Singleton class that opens a config file to hold game settings
     - [x] Decide which library/file format to use for the file
     - [ ] (optional) Make properties writable
-- [ ] Tile system
-    - [ ] Generation
+- [x] Tile system
+    - [x] Generation
 - [ ] Entities
     - [ ] Enemy attack system
     - [ ] Pathfinding
