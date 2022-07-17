@@ -2,6 +2,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include "mainTest.hpp"
 #define SKIP_SFML_TESTS true
+#define SAVE_NOISE_IMAGES false
 // Docs: https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/index.html
 
 BOOST_AUTO_TEST_SUITE(GameConfigTestSuite)
@@ -193,7 +194,7 @@ BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
     sf::Image i;
     i.create(1920, 1080);
-    Noise2DPerlin *noise = new Noise2DPerlin(0, 1, 127.5, 127.5);
+    Noise2DPerlin *noise = new Noise2DPerlin(0, 1, 127.5, 127.5, 0, 0);
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
@@ -201,26 +202,28 @@ BOOST_AUTO_TEST_CASE(Noise2DPerlinTest) {
             i.setPixel(x, y, sf::Color(val, val, val, 255));
         }
     }
-    int fileNumber = -1;
-    std::string fileName;
-    {
-        bool haveNotFoundNextNumber = true;
-        sf::Image testImage;
-        do {
-            ++fileNumber;
-            fileName = "tests/outputs/noise_perlin2D" + std::to_string(fileNumber) + ".png";
-            haveNotFoundNextNumber = testImage.loadFromFile(fileName);
-        } while (haveNotFoundNextNumber);
+    if (SAVE_NOISE_IMAGES) {
+        int fileNumber = -1;
+        std::string fileName;
+        {
+            bool haveNotFoundNextNumber = true;
+            sf::Image testImage;
+            do {
+                ++fileNumber;
+                fileName = "tests/outputs/noise_perlin2D" + std::to_string(fileNumber) + ".png";
+                haveNotFoundNextNumber = testImage.loadFromFile(fileName);
+            } while (haveNotFoundNextNumber);
+        }
+
+        i.saveToFile(fileName);
     }
-    
-    i.saveToFile(fileName);
 }
 
 BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
     sf::Image i;
     i.create(1920, 1080);
     LayeredNoise2D *noise = new LayeredNoise2D();
-    noise->addLayer(new NoiseBuilder2DPerlin(0, 100, 127.5, 127.5));
+    noise->addLayer(new NoiseBuilder2DPerlin(0, 0.01, 127.5, 127.5));
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
@@ -228,47 +231,72 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
             i.setPixel(x, y, sf::Color(val, val, val, 255));
         }
     }
-    int fileNumber = -1;
-    std::string fileName;
-    {
-        bool haveNotFoundNextNumber = true;
-        sf::Image testImage;
-        do {
-            ++fileNumber;
-            fileName = "tests/outputs/noise_single_layered2D" + std::to_string(fileNumber) + ".png";
-            haveNotFoundNextNumber = testImage.loadFromFile(fileName);
-        } while (haveNotFoundNextNumber);
+    if (SAVE_NOISE_IMAGES) {
+        int fileNumber = -1;
+        std::string fileName;
+        {
+            bool haveNotFoundNextNumber = true;
+            sf::Image testImage;
+            do {
+                ++fileNumber;
+                fileName = "tests/outputs/noise_single_layered2D" + std::to_string(fileNumber) + ".png";
+                haveNotFoundNextNumber = testImage.loadFromFile(fileName);
+            } while (haveNotFoundNextNumber);
+        }
+
+        i.saveToFile(fileName);
     }
-    
-    i.saveToFile(fileName);
+}
+
+sf::Color hsv(double h, double s, double v) {
+    h = fmod(h, 360.0);
+    if (0 <= h && h < 60) {
+        return sf::Color(255, h * 255 / 60, 0, 255);
+    } else if (60 <= h && h < 120) {
+        return sf::Color(255 - (h - 60) * 255 / 60, 255, 0, 255);
+    } else if (120 <= h && h < 180) {
+        return sf::Color(0, 255, (h - 120) * 255 / 60, 255);
+    } else if (180 <= h && h < 240) {
+        return sf::Color(0, 255 - (h - 180) * 255 / 60, 255, 255);
+    } else if (240 <= h && h < 300) {
+        return sf::Color((h - 240) * 255 / 60, 0, 255, 255);
+    } else if (300 <= h && h < 360) {
+        return sf::Color(255, 0, 255 - (h - 300) * 255 / 60, 255);
+    }
 }
 
 BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
     sf::Image i;
-    i.create(1920, 1080);
+    i.create(1000, 1000);
     LayeredNoise2D *noise = new LayeredNoise2D();
-    noise->addLayer(new NoiseBuilder2DPerlin(0, 2, 100, 100)); // 0-200
-    noise->addLayer(new NoiseBuilder2DPerlin(819681, 7, 27.5, 27.5)); // 0-55
+    noise->addLayer(new NoiseBuilder2DPerlin(0, 0.01, 64, 64)); // 0-128
+    noise->addLayer(new NoiseBuilder2DPerlin(651, 0.02, 32, 32)); // 0-64
+    noise->addLayer(new NoiseBuilder2DPerlin(3543, 0.04, 16, 16)); // 0-32
+    noise->addLayer(new NoiseBuilder2DPerlin(45, 0.08, 8, 8)); // 0-16
+    noise->addLayer(new NoiseBuilder2DPerlin(543453, 0.16, 4, 4)); // 0-8
+    noise->addLayer(new NoiseBuilder2DPerlin(453, 0.32, 2, 2)); // 0-4
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
-            int val = 128 * (noise->noise(((double) x), ((double) y)) + 1);
-            i.setPixel(x, y, sf::Color(val, val, val, 255));
+            double val = abs(420 - 360.0 * noise->noise(((double) x), ((double) y)) / 126.0);
+            i.setPixel(x, y, hsv(val, 255, 255));
         }
     }
-    int fileNumber = -1;
-    std::string fileName;
-    {
-        bool haveNotFoundNextNumber = true;
-        sf::Image testImage;
-        do {
-            ++fileNumber;
-            fileName = "tests/outputs/noise_many_layered2D" + std::to_string(fileNumber) + ".png";
-            haveNotFoundNextNumber = testImage.loadFromFile(fileName);
-        } while (haveNotFoundNextNumber);
+    if (SAVE_NOISE_IMAGES) {
+        int fileNumber = -1;
+        std::string fileName;
+        {
+            bool haveNotFoundNextNumber = true;
+            sf::Image testImage;
+            do {
+                ++fileNumber;
+                fileName = "tests/outputs/noise_many_layered2D" + std::to_string(fileNumber) + ".png";
+                haveNotFoundNextNumber = testImage.loadFromFile(fileName);
+            } while (haveNotFoundNextNumber);
+        }
+        
+        i.saveToFile(fileName);
     }
-    
-    i.saveToFile(fileName);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

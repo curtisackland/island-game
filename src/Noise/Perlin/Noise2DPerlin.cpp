@@ -1,10 +1,12 @@
 #include "Noise2DPerlin.hpp"
 
-Noise2DPerlin::Noise2DPerlin(int seed, double frequency, double amplitude, double bias) {
+Noise2DPerlin::Noise2DPerlin(int seed, double frequency, double amplitude, double bias, double xOffset, double yOffset) {
     this->setSeed(seed);
     this->setFrequency(frequency);
     this->setAmplitude(amplitude);
     this->setBias(bias);
+    this->setXOffset(xOffset);
+    this->setYOffset(yOffset);
 }
 
 Noise2DPerlin::~Noise2DPerlin() {
@@ -27,8 +29,8 @@ int Noise2DPerlin::permutationArray[] = { 151,160,137,91,90,15,
 };
 
 double Noise2DPerlin::noise(double x, double y) {
-    x = x / this->getFrequency();
-    y = y / this->getFrequency();
+    x = (x + this->xOffset) * this->getFrequency();
+    y = (y + this->yOffset) * this->getFrequency();
     int xMod = ((int) floorf64(x)) & 255; // Mod 256
     int yMod = ((int) floorf64(y)) & 255;
     int zMod = ((int) floorf64(this->getSeed())) & 255;

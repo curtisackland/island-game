@@ -1,5 +1,6 @@
  // This file is here so that vscode intellisense wokrs properly
 #pragma once
+#include <math.h>
 #include "../src/GameConfig.hpp"
 #include "../src/GameEntity.hpp"
 #include "../src/GameEvents.hpp"
