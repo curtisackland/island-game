@@ -1,4 +1,3 @@
- // This file is here so that vscode intellisense wokrs properly
 #pragma once
 #include <math.h>
 #include "../src/GameConfig.hpp"
