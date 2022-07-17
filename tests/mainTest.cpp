@@ -248,42 +248,6 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
     }
 }
 
-
-// Reference https://www.rapidtables.com/convert/color/hsv-to-rgb.html
-sf::Color hsv(double h, double s, double v) {
-    h = abs(fmod(h, 360));
-    double c = s * v;
-    double x = c * (1 - abs(fmod(h/60, 2) - 1));
-    double m = v - c;
-    double rPrime, gPrime, bPrime;
-    if (0 <= h && h < 60) {
-        rPrime = c;
-        gPrime = x;
-        bPrime = 0;
-    } else if (60 <= h && h < 120) {
-        rPrime = x;
-        gPrime = c;
-        bPrime = 0;
-    } else if (120 <= h && h < 180) {
-        rPrime = 0;
-        gPrime = c;
-        bPrime = x;
-    } else if (180 <= h && h < 240) {
-        rPrime = 0;
-        gPrime = x;
-        bPrime = c;
-    } else if (240 <= h && h < 300) {
-        rPrime = x;
-        gPrime = 0;
-        bPrime = c;
-    } else if (300 <= h && h < 360) {
-        rPrime = c;
-        gPrime = 0;
-        bPrime = x;
-    } 
-    return sf::Color((rPrime + m) * 255, (gPrime + m) * 255, (bPrime + m) * 255);
-}
-
 BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
     sf::Image i;
     i.create(1000, 1000);
@@ -297,8 +261,8 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
-            double val = abs(420 - 360.0 * noise->noise(((double) x), ((double) y)) / 126.0);
-            i.setPixel(x, y, hsv(val, 1, 1));
+            double val = noise->noise(((double) x), ((double) y));
+            i.setPixel(x, y, sf::Color(val, val, val));
         }
     }
     if (SAVE_NOISE_IMAGES) {
