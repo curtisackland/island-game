@@ -11,7 +11,12 @@ MapChunk::MapChunk(int chunkX, int chunkY) {
 }
 
 MapChunk::~MapChunk() {
-
+    for (auto x : this->tiles) {
+        for (auto y : x) {
+            delete y;
+            y = nullptr;
+        }
+    }
 }
 
 Tile *MapChunk::getTile(int x, int y) {

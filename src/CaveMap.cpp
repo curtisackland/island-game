@@ -9,6 +9,7 @@ CaveMap::CaveMap() : GameMap(){
 
 CaveMap::~CaveMap() {
     delete this->layeredNoise;
+    this->layeredNoise = nullptr;
 }
 
 void CaveMap::generate(int chunkX, int chunkY) {

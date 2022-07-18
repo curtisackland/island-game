@@ -85,4 +85,6 @@ class GameConfig {
          */
         void forceWrite();
 
+        static void destroy();
+
 };

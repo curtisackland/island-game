@@ -17,4 +17,5 @@ MainWindow& MainWindow::getInstance() {
 
 void MainWindow::destroy() {
     delete MainWindow::self;
+    MainWindow::self = nullptr;
 }

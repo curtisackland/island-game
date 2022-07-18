@@ -5,7 +5,10 @@ GameMap::GameMap() : chunkSize(GameConfig::getInstance().getJson("resources/conf
 }
 
 GameMap::~GameMap() {
-
+    for (auto chunk : this->map) {
+        delete chunk.second;
+        chunk.second = nullptr;
+    }
 }
 
 Tile* GameMap::getTile(int x, int y) {

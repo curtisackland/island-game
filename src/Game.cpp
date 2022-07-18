@@ -8,7 +8,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     // View setup
     MainView::getInstance().setSize(MainWindow::getInstance().getSize().x, MainWindow::getInstance().getSize().y);
 
-    //Player setup
+    // Player setup
     this->player = new Player(0);
     this->player->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
     this->player->setOrigin(this->player->getLocalBounds().width/2, this->player->getLocalBounds().width/2);
@@ -23,6 +23,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     this->enemies = this->spawnEnemiesOnMap(0);
     this->eventSystem.addUpdateEntity(this->enemies->at(0));
     this->eventSystem.addDrawEntity(this->enemies->at(0), 0);
+
 }
 
 Game::~Game() {
@@ -30,11 +31,16 @@ Game::~Game() {
     delete this->view;
     for (auto enemy : *this->enemies) {
         delete enemy;
+        enemy = nullptr;
     }
     delete this->enemies;
+    this->enemies = nullptr;
 
     MainWindow::destroy();
     MainView::destroy();
+    GameState::destroy();
+    TextureFactory::destroy();
+    GameConfig::destroy();
 }
 
 void Game::gameLoop() {

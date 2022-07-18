@@ -20,3 +20,12 @@ void GameState::resetTimer(){
 void GameState::setCurrentMap(int layer){
     GameState::currentMap = layer;
 }
+
+void GameState::destroy() {
+    for (auto map : *GameState::maps) {
+        delete map;
+        map = nullptr;
+    }
+    delete GameState::maps;
+    GameState::maps = nullptr;
+}

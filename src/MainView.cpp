@@ -17,4 +17,5 @@ MainView& MainView::getInstance() {
 
 void MainView::destroy() {
     delete MainView::self;
+    MainView::self = nullptr;
 }

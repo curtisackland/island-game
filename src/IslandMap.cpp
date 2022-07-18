@@ -8,7 +8,8 @@ IslandMap::IslandMap() : GameMap(){
 }
 
 IslandMap::~IslandMap() {
-    
+    delete this->layeredNoise;
+    this->layeredNoise = nullptr;
 }
 
 void IslandMap::generate(int chunkX, int chunkY) {

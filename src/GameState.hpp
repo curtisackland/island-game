@@ -21,4 +21,5 @@ class GameState{
         static void setCurrentMap(int layer);
         static int getTileSize() {return tileSize;}
         static void resetTimer();
+        static void destroy();
 };

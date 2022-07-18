@@ -8,6 +8,7 @@ GameConfig::GameConfig() {
 
 GameConfig::~GameConfig() {
     delete this->configFiles;
+    this->configFiles = nullptr;
 }
 
 boost::json::object const & GameConfig::getJson(boost::json::string fileName) {
@@ -69,3 +70,8 @@ boost::json::value const & GameConfig::getProperty(boost::json::string fileName)
     return this->configFiles;
 }
 */
+
+void GameConfig::destroy() {
+    delete GameConfig::self;
+    GameConfig::self = nullptr;
+}

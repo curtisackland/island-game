@@ -1,7 +1,6 @@
 #pragma once
 #include <math.h>
 #include <stdio.h>
-//#include "Vector2.hpp"
 #include "../Noise2D.hpp"
 
 class Noise2DPerlin : public Noise2D {

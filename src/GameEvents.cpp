@@ -6,7 +6,15 @@ GameEvents::GameEvents() {
 }
 
 GameEvents::~GameEvents() {
-
+    // Remove entity references to this object
+    for (auto entity : this->updateEntitiesList) {
+        entity.second->setEventParent(nullptr);
+    }
+    for (auto layer : this->drawEntitiesList) {
+        for (auto entity : layer.second) {
+            entity.second->setEventParent(nullptr);
+        }
+    }
 }
 
 void GameEvents::addUpdateEntity(GameEntity *entity) {

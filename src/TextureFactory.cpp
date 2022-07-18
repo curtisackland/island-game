@@ -19,3 +19,10 @@ sf::Texture * TextureFactory::getTexture(std::string key) {
         return texture;
     }
 }
+
+void TextureFactory::destroy() {
+    for (auto tex : TextureFactory::textures) {
+        delete tex.second;
+        tex.second = nullptr;
+    }
+}

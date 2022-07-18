@@ -8,6 +8,7 @@ LayeredNoise2D::LayeredNoise2D() {
 LayeredNoise2D::~LayeredNoise2D() {
     for (auto layer : this->layerList) {
         delete layer;
+        layer = nullptr;
     }
 }
 
