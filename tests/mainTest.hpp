@@ -8,3 +8,4 @@
 #include "../src/Noise/LayeredNoise2D.hpp"
 #include "../src/Noise/Noise2D.hpp"
 #include "../src/Noise/Perlin/NoiseBuilder2DPerlin.hpp"
+#include "../src/Noise/HighCenter/NoiseBuilder2DHighCenter.hpp"

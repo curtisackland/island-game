@@ -8,12 +8,12 @@
 #define TILE_SIZE_CONSTRUCTOR MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double()
 
 Tile::Tile(int xIndex, int yIndex) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
-    this->setDefinedTexture(0);
+    this->setDefinedTexture(-1);
     this->setPosition(xIndex * this->tileSize, yIndex * this->tileSize);
 }
 
 Tile::Tile(float x, float y) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
-    this->setDefinedTexture(0);
+    this->setDefinedTexture(-1);
     this->setPosition(x, y);
 }
 
@@ -25,6 +25,10 @@ Tile::Tile(int id, float x, float y) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUC
 void Tile::setDefinedTexture(int textureNumber) {
     std::string tile = "";
     switch(textureNumber){
+        case -1:
+            this->walkable = true;
+            tile = "no-texture.png";
+            break;
         case 0:
             this->walkable = true;
             tile = "grass.png";
@@ -33,11 +37,21 @@ void Tile::setDefinedTexture(int textureNumber) {
             this->walkable = false;
             tile = "stone.png";
             break;
+        case 2:
+            this->walkable = false;
+            tile = "water.png";
+            break;
+        case 3:
+            this->walkable = true;
+            tile = "sand.png";
+            break;
         default:
+            std::string err = "Tile number invalid \"" + std::to_string(textureNumber) + "\"";
+            throw new std::out_of_range(err.c_str());
             break;
     }
-    this->setTexture(*(TextureFactory::getTexture("resources/images/" + tile)));
-    this->setScale((TILE_SIZE_CONSTRUCTOR)/ (TextureFactory::getTexture("resources/images/" + tile)->getSize().x), (TILE_SIZE_CONSTRUCTOR)/(TextureFactory::getTexture("resources/images/" + tile)->getSize().x));
+    this->setTexture(*(TextureFactory::getTexture("resources/images/" + tile)), true);
+    this->setScale((TILE_SIZE_CONSTRUCTOR) / (TextureFactory::getTexture("resources/images/" + tile)->getSize().x), (TILE_SIZE_CONSTRUCTOR)/(TextureFactory::getTexture("resources/images/" + tile)->getSize().y));
 }
 
 int Tile::getTextureWidth(){

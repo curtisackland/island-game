@@ -8,11 +8,13 @@ sf::Texture * TextureFactory::getTexture(std::string key) {
         return result->second;
     } else  {
         sf::Texture *texture = new sf::Texture;
-        if(texture->loadFromFile(key)){
+        if(texture->loadFromFile(key)) {
             TextureFactory::textures.insert(std::pair<std::string, sf::Texture*>(key, texture));
         } else {
-            printf("Error loading sprite.\n");
-            throw std::ifstream::failure("Error loading sprite");
+            fprintf(stderr, "\x1B[33mWarning: Error loading sprite \"%s\".\n\x1B[0m", key.c_str());
+            if (!texture->loadFromFile("resources/images/no-texture.png")) {
+                throw std::ifstream::failure("Error loading sprite");
+            }
         }
         return texture;
     }
