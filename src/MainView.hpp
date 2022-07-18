@@ -8,4 +8,5 @@ class MainView : public sf::View{
         static MainView *self;
     public:
         static MainView& getInstance();
+        static void destroy();
 };

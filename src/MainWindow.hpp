@@ -8,4 +8,5 @@ class MainWindow : public sf::RenderWindow{
         static MainWindow *self;
     public:
         static MainWindow& getInstance();
+        static void destroy();
 };
