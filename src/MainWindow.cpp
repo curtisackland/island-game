@@ -14,3 +14,7 @@ MainWindow& MainWindow::getInstance() {
     }
     return *self;
 }
+
+void MainWindow::destroy() {
+    delete MainWindow::self;
+}

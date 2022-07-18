@@ -252,16 +252,13 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
     sf::Image i;
     i.create(1000, 1000);
     LayeredNoise2D *noise = new LayeredNoise2D();
-    noise->addLayer(new NoiseBuilder2DPerlin(0, 0.01, 64, 64)); // 0-128
-    noise->addLayer(new NoiseBuilder2DPerlin(651, 0.02, 32, 32)); // 0-64
-    noise->addLayer(new NoiseBuilder2DPerlin(3543, 0.04, 16, 16)); // 0-32
-    noise->addLayer(new NoiseBuilder2DPerlin(45, 0.08, 8, 8)); // 0-16
-    noise->addLayer(new NoiseBuilder2DPerlin(543453, 0.16, 4, 4)); // 0-8
-    noise->addLayer(new NoiseBuilder2DPerlin(453, 0.32, 2, 2)); // 0-4
+    noise->addLayer(new NoiseBuilder2DHighCenter(0.02, 50, 0, 0, 0));
+    noise->addLayer(new NoiseBuilder2DPerlin(86747272, 0.002, 20, 20));
+    noise->addLayer(new NoiseBuilder2DPerlin(27074768, 0.004, 10, 10));
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
-            double val = noise->noise(((double) x), ((double) y));
+            double val = noise->noise(((double) x), ((double) y)) * 2;
             i.setPixel(x, y, sf::Color(val, val, val));
         }
     }

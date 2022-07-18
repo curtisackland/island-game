@@ -17,7 +17,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     this->eventSystem.addDrawEntity(this->player, 0);
     
     // Map setup
-    GameState::getMaps()->push_back(new CaveMap());
+    GameState::getMaps()->push_back(new IslandMap());
 
     // Enemy
     this->enemies = this->spawnEnemiesOnMap(0);
@@ -28,7 +28,13 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
 Game::~Game() {
     delete this->player;
     delete this->view;
+    for (auto enemy : *this->enemies) {
+        delete enemy;
+    }
     delete this->enemies;
+
+    MainWindow::destroy();
+    MainView::destroy();
 }
 
 void Game::gameLoop() {

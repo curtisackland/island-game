@@ -12,6 +12,7 @@ CXXFLAGS+=$(debug_libs) # Comment this out to disable debug libs
 game_source := $(wildcard src/*.cpp)
 game_source += $(wildcard src/Noise/*.cpp)
 game_source += $(wildcard src/Noise/Perlin/*.cpp)
+game_source += $(wildcard src/Noise/HighCenter/*.cpp)
 test_source := $(wildcard tests/*.cpp)
 game_objs := $(game_source:.cpp=.o)
 test_objs := $(test_source:.cpp=.o)

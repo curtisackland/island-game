@@ -14,3 +14,7 @@ MainView& MainView::getInstance() {
     }
     return *self;
 }
+
+void MainView::destroy() {
+    delete MainView::self;
+}
