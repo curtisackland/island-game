@@ -12,7 +12,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     this->player = new Player(0);
     this->player->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
     this->player->setOrigin(this->player->getLocalBounds().width/2, this->player->getLocalBounds().width/2);
-    this->player->setPosition(25, 25);
+    this->player->setPosition(25, 25); 
     this->eventSystem.addUpdateEntity(this->player);
     this->eventSystem.addDrawEntity(this->player, 0);
     
@@ -21,8 +21,6 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
 
     // Enemy
     this->enemies = this->spawnEnemiesOnMap(0);
-    this->eventSystem.addUpdateEntity(this->enemies->at(0));
-    this->eventSystem.addDrawEntity(this->enemies->at(0), 0);
 }
 
 Game::~Game() {
@@ -105,8 +103,13 @@ void Game::drawMap(){
 
 std::vector<Enemy*> * Game::spawnEnemiesOnMap(int layer) {
     std::vector<Enemy*>* ret = new std::vector<Enemy*>;
-    ret->push_back(new Enemy(player, layer));
-    ret->at(0)->setPosition(300, 300);
-    ret->at(0)->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
+    for(int i = 0; i < 1; i++){
+        ret->push_back(new Enemy(player, layer));
+        ret->at(i)->setPosition(300, 300);
+        ret->at(i)->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
+        ret->at(i)->setOrigin(ret->at(i)->getLocalBounds().width/2, ret->at(i)->getLocalBounds().width/2);
+        this->eventSystem.addUpdateEntity(ret->at(i));
+        this->eventSystem.addDrawEntity(ret->at(i), 0);
+    }
     return ret;
 }

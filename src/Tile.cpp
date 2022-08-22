@@ -31,7 +31,7 @@ void Tile::setDefinedTexture(int textureNumber) {
             break;
         case 0:
             this->walkable = true;
-            tile = "grass.png";
+            tile = "testgrass.png";
             break;
         case 1:
             this->walkable = false;

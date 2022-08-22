@@ -1,4 +1,4 @@
 {
-    "speed" : 300.0,
+    "speed" : 250.0,
     "default_texture" : "resources/images/enemy.png"
 }
