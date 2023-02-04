@@ -19,31 +19,17 @@ bool Enemy::Compare(PathFindingNode *left, PathFindingNode *right){
 }
 
 void Enemy::update() {
-    float tx = pathfindingTarget->getPosition().x; // pixel position of target
+    // pixel position of target
+    float tx = pathfindingTarget->getPosition().x;
     float ty = pathfindingTarget->getPosition().y;
 
     //tile position of target
     int targetTileX = pathfindingTarget->getPosition().x/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
     int targetTileY = pathfindingTarget->getPosition().y/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
 
-    /*
-    float rot = M_PI - atan2(tx - this->getPosition().x, ty - this->getPosition().y);
-
-    printf("%f\n", rot);
-    printf("x: %f, y: %f\n", GameState::getDeltaTime()*this->speed*cos(rot), GameState::getDeltaTime()*this->speed*sin(rot));
-    this->move(GameState::getDeltaTime()*this->speed*sin(rot), -GameState::getDeltaTime()*this->speed*cos(rot));
-    this->setRotation(rot * (180/M_PI));
-    */
-    
-
-    // Do pathfinding here-
-
     std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> fringe(Compare);
     int startTileX = this->getPosition().x/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
     int startTileY = this->getPosition().y/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
-    //printf("Starting tile: %d, %d\n", startTileX, startTileY);
-    //printf("Target tile: %d, %d\n", targetTileX, targetTileY);
-    //printf("H: %f\n", calculateHeuristic(startTileX, startTileY, targetTileX, targetTileY));
 
     PathFindingNode *startNode = new PathFindingNode(
         startTileX, 
@@ -66,7 +52,6 @@ void Enemy::update() {
         PathFindingNode *currentNode = fringe.top();
         fringe.pop();
 
-        //printf("CurrentNode x,y: %d, %d \t TargetNode x,y: %d, %d \n", currentNode->getTileX(), currentNode->getTileY(), targetTileX, targetTileY);
         if(currentNode->getTileX() == targetTileX && currentNode->getTileY() == targetTileY){
             finalNode = currentNode;
             found = true;
@@ -83,19 +68,29 @@ void Enemy::update() {
     }
     
     float rot;
-    //printf("First Start Node x,y: %d, %d \t Final Node x,y: %d, %d \n", startNode->getTileX(), startNode->getTileY(), finalNode->getTileX(), finalNode->getTileY());
     if(startNode->getTileX() == finalNode->getTileX() && startNode->getTileY() == finalNode->getTileY()){
         rot = M_PI - atan2(tx - this->getPosition().x, ty - this->getPosition().y);
     } else {
-        while(finalNode->getPreviousNode()->getTileX() != startNode->getTileX() || finalNode->getPreviousNode()->getTileY() != startNode->getTileY()){ //MAYBE WRONG
+        while(finalNode->getPreviousNode()->getTileX() != startNode->getTileX() || finalNode->getPreviousNode()->getTileY() != startNode->getTileY()){
             PathFindingNode *temp = finalNode;
             finalNode = finalNode->getPreviousNode();
             delete temp;
-            //printf("Start Node x,y: %d, %d \t Final Node x,y: %d, %d \n", startNode->getTileX(), startNode->getTileY(), finalNode->getTileX(), finalNode->getTileY());
-            //sleep(2);
         }
         float scaleBacktoPosition = MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
-        rot = M_PI - atan2((finalNode->getTileX()*scaleBacktoPosition + scaleBacktoPosition/2)- this->getPosition().x, (finalNode->getTileY()*scaleBacktoPosition + scaleBacktoPosition/2) - this->getPosition().y);
+        
+        float positionX = this->getPosition().x;
+        float positionY = this->getPosition().y;
+
+        // negative coords need position to be scaled back one tile for trig function to work properly
+        if (finalNode->getTileX() < 0) {
+            positionX += scaleBacktoPosition;
+        }
+
+        if (finalNode->getTileY() < 0) {
+            positionY += scaleBacktoPosition;
+        }
+
+        rot = M_PI - atan2((finalNode->getTileX() * scaleBacktoPosition + scaleBacktoPosition/2) - positionX, (finalNode->getTileY() * scaleBacktoPosition + scaleBacktoPosition/2) - positionY);
     }
     
     //delete pathfinding nodes
@@ -107,7 +102,6 @@ void Enemy::update() {
 
     this->setRotation(rot * (180/M_PI));
     this->move(GameState::getDeltaTime()*this->speed*sin(rot), -GameState::getDeltaTime()*this->speed*cos(rot));
-    
 }
 
 void Enemy::draw() {
