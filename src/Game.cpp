@@ -79,20 +79,6 @@ void Game::drawMap(){
     int right = (int) floor((this->player->getPosition().x + MainView::getInstance().getSize().x/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) + 1;
     int top = (int) floor((this->player->getPosition().y - MainView::getInstance().getSize().y/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) - 1;
     int bottom = (int) floor((this->player->getPosition().y + MainView::getInstance().getSize().y/2)/MainView::getInstance().getSize().x * this->tilesPerWindowWidth) + 1;
-    /*
-    if(left < 0){
-        left = 0;
-    }
-    if(right > GameState::getMaps()->at(GameState::getCurrentMap())->getWidth()){
-        right = GameState::getMaps()->at(GameState::getCurrentMap())->getWidth();
-    }
-    if(top < 0){
-        top = 0;
-    }
-    if(bottom > GameState::getMaps()->at(GameState::getCurrentMap())->getHeight()){
-        bottom = GameState::getMaps()->at(GameState::getCurrentMap())->getHeight();
-    }
-    */
 
     for(int i = left; i < right; i++){
         for(int j = top; j < bottom; j++){

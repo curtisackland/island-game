@@ -17,7 +17,7 @@
 class Enemy : public GameEntity {
     private:
         GameEntity* pathfindingTarget;
-        float calculateHeuristic(int x1, int y1, int x2, int y2);
+        double calculateHeuristic(int x1, int y1, int x2, int y2);
         bool static Compare(PathFindingNode *left, PathFindingNode *right);
         void addNode(int x, int y, int tx, int ty, int gcost, PathFindingNode *node, std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> &fringe);
     public:

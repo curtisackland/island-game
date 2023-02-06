@@ -20,16 +20,17 @@ bool Enemy::Compare(PathFindingNode *left, PathFindingNode *right){
 
 void Enemy::update() {
     // pixel position of target
-    float tx = pathfindingTarget->getPosition().x;
-    float ty = pathfindingTarget->getPosition().y;
+    double targetX = pathfindingTarget->getPosition().x;
+    double targetY = pathfindingTarget->getPosition().y;
 
+    double scaleBacktoPosition = MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
     //tile position of target
-    int targetTileX = pathfindingTarget->getPosition().x/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
-    int targetTileY = pathfindingTarget->getPosition().y/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
+    int targetTileX = floor(pathfindingTarget->getPosition().x/scaleBacktoPosition);
+    int targetTileY = floor(pathfindingTarget->getPosition().y/scaleBacktoPosition);
 
     std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> fringe(Compare);
-    int startTileX = this->getPosition().x/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
-    int startTileY = this->getPosition().y/MainView::getInstance().getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
+    int startTileX = floor(this->getPosition().x/scaleBacktoPosition);
+    int startTileY = floor(this->getPosition().y/scaleBacktoPosition);
 
     PathFindingNode *startNode = new PathFindingNode(
         startTileX, 
@@ -69,26 +70,16 @@ void Enemy::update() {
     
     float rot;
     if(startNode->getTileX() == finalNode->getTileX() && startNode->getTileY() == finalNode->getTileY()){
-        rot = M_PI - atan2(tx - this->getPosition().x, ty - this->getPosition().y);
+        rot = M_PI - atan2(targetX - this->getPosition().x, targetY - this->getPosition().y);
     } else {
         while(finalNode->getPreviousNode()->getTileX() != startNode->getTileX() || finalNode->getPreviousNode()->getTileY() != startNode->getTileY()){
             PathFindingNode *temp = finalNode;
             finalNode = finalNode->getPreviousNode();
             delete temp;
         }
-        float scaleBacktoPosition = MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
         
         float positionX = this->getPosition().x;
         float positionY = this->getPosition().y;
-
-        // negative coords need position to be scaled back one tile for trig function to work properly
-        if (finalNode->getTileX() < 0) {
-            positionX += scaleBacktoPosition;
-        }
-
-        if (finalNode->getTileY() < 0) {
-            positionY += scaleBacktoPosition;
-        }
 
         rot = M_PI - atan2((finalNode->getTileX() * scaleBacktoPosition + scaleBacktoPosition/2) - positionX, (finalNode->getTileY() * scaleBacktoPosition + scaleBacktoPosition/2) - positionY);
     }
@@ -117,18 +108,19 @@ void Enemy::loadConfigs() {
     this->setTexture(*TextureFactory::getTexture(this->getMyConfigFile().at("default_texture").as_string().c_str()));
 }
 
-float Enemy::calculateHeuristic(int x1, int y1, int x2, int y2){
+double Enemy::calculateHeuristic(int x1, int y1, int x2, int y2){
     int deltaY = abs(y2 - y1);
     int deltaX = abs(x2 - x1);
     return sqrt(deltaY*deltaY + deltaX*deltaX);
 }
 
-void Enemy::addNode(int x, int y, int tx, int ty, int gcost, PathFindingNode *node, std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> &fringe){
+void Enemy::addNode(int x, int y, int targetX, int targetY, int gcost, PathFindingNode *node, std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> &fringe){
     if(GameState::getMaps()->at(this->currentMap)->getTile(x, y)->isWalkable()){
+        GameState::getMaps()->at(this->currentMap)->getTile(x, y)->setDefinedTexture(3);
         fringe.push(new PathFindingNode(
             x, 
             y,
-            calculateHeuristic(x, y, tx, ty),
+            calculateHeuristic(x, y, targetX, targetY),
             gcost,
             node
         ));
