@@ -1,12 +1,6 @@
 # Tasks
-- [x] Set up environment
-    - [x] Makefile
-    - [X] Folder structure
-- [x] Figure out how to draw
-- [x] Figure out how to get user input
-- [x] Figure out how to move shapes around based on input
-- [x] Figure out how to do testing with boost
 - [ ] Screen size (fullscreen/scaling)
+    - [ ] Put all settings into one singleton class
 - [ ] Make a config file 
     - [x] Singleton class that opens a config file to hold game settings
     - [x] Decide which library/file format to use for the file
@@ -15,13 +9,14 @@
     - [x] Generation
 - [ ] Entities
     - [ ] Enemy attack system
-    - [ ] Pathfinding
+    - [X] Pathfinding
 - [ ] Player Attack system
 - [ ] Level/Map system
     - [ ] Surface
     - [ ] Caves
     - [ ] Cave entrance 
 - [ ] Sleeping to re-generate caves
+- [ ] Add a logging system for debug information
 
 
 # Notes

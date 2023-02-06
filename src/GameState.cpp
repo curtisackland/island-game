@@ -5,10 +5,6 @@ std::vector<GameMap*> *GameState::maps = new std::vector<GameMap*>;
 float GameState::deltaTime = 0;
 sf::Clock GameState::clock;
 
-GameState::GameState(){
-
-}
-
 float GameState::getDeltaTime(){
     return GameState::deltaTime;
 }
