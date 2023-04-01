@@ -33,11 +33,10 @@
 
 # VSCode
 .vscode/*
-!launch.json
-!tasks.json
+!.vscode/launch.json
+!.vscode/tasks.json
 
-island-game
-test
+build/
 docs/*
 libs/*
 !get_libs.sh

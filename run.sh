@@ -1,4 +1,4 @@
 # Compile and run the game
-make -j
-./island-game
-make clean
+cmake -DCMAKE_BUILD_TYPE=Debug -B ./build -S .
+make -j$(nproc) -C ./build
+./build/island-game
