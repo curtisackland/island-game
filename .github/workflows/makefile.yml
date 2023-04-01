@@ -29,10 +29,10 @@ jobs:
       run: cmake -DCMAKE_BUILD_TYPE=Debug -B ./build -S .
 
     - name: Build app
-      run: make -j -C ./build island-game
+      run: make -j2 -C ./build island-game
 
     - name: Build tests
-      run: make -j -C ./build test
+      run: make -j2 -C ./build test
 
     - name: Run tests
       run: ./build/test
