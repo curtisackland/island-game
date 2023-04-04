@@ -26,13 +26,13 @@ jobs:
             
 
     - name: Run cmake
-      run: cmake -DCMAKE_BUILD_TYPE=Debug -B ./build -S .
+      run: cmake -B ./build -S .
 
     - name: Build app
-      run: make -j2 -C ./build island-game
+      run: make -j$(nproc) -C ./build island-game
 
     - name: Build tests
-      run: make -j2 -C ./build test
+      run: make -j$(nproc) -C ./build test
 
     - name: Run tests
       run: ./build/test
