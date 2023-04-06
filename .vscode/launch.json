@@ -7,7 +7,7 @@
         "name": "(gdb) Launch",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/island-game",
+        "program": "${workspaceFolder}/build/island-game",
         "args": [],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
@@ -26,13 +26,13 @@
                 "ignoreFailures": true
             }
         ],
-        "preLaunchTask": "Build"
+        "preLaunchTask": "Build Debug"
     },
     {
         "name": "(gdb) Test",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/test",
+        "program": "${workspaceFolder}/build/test",
         "args": [],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
@@ -51,6 +51,15 @@
                 "ignoreFailures": true
             }
         ],
-        "preLaunchTask": "Build Test"
+        "preLaunchTask": "Build Debug"
+    },
+    {
+        "name": "Run Release",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/island-game",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "preLaunchTask": "Build Release"
     }]
 }

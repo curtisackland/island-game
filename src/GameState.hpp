@@ -7,7 +7,6 @@
  */
 class GameState{
     private:
-        GameState();
         static float deltaTime;
         static sf::Clock clock; // Game clock
         static std::vector<GameMap*> *maps; // Island map
@@ -19,7 +18,6 @@ class GameState{
         static std::vector<GameMap*>* getMaps() {return maps;}
         static int getCurrentMap(){return currentMap;}
         static void setCurrentMap(int layer);
-        static int getTileSize() {return tileSize;}
         static void resetTimer();
         static void destroy();
 };

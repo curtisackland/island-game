@@ -17,7 +17,7 @@ void IslandMap::generate(int chunkX, int chunkY) {
     for (int x = 0; x < this->chunkSize; ++x) {
         for (int y = 0; y < this->chunkSize; ++y) {
             double val = layeredNoise->noise(((double) chunkX) + (((double) x) / ((double) this->chunkSize)), ((double) chunkY) + (((double) y) / ((double) this->chunkSize)));
-            if (val > 90) {
+            if (val > 85) {
                 newMapChunk->getTile(x, y)->setDefinedTexture(1);
             } else if (val > 42) {
                 newMapChunk->getTile(x, y)->setDefinedTexture(0);
