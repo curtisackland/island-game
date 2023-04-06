@@ -5,7 +5,7 @@
 
 class Noise2DPerlin : public Noise2D {
 private:
-    static int permutationArray[];
+    static const int permutationArray[];
     int seed;
     double frequency;
     double amplitude;

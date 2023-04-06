@@ -6,28 +6,30 @@ class GameEntity;
 
 class GameEvents {
 public:
-    typedef std::unordered_map<int, GameEntity*> UPDATE_ENTITIES_LIST_TYPE;
-    typedef std::map<int, UPDATE_ENTITIES_LIST_TYPE> DRAW_ENTITIES_LIST_TYPE;
+    typedef std::unordered_map<int, std::shared_ptr<GameEntity>> ENTITY_MAP;
+    typedef ENTITY_MAP UPDATE_ENTITIES_LIST_TYPE;
+    typedef std::map<int, ENTITY_MAP> DRAW_ENTITIES_LIST_TYPE;
 private:
     UPDATE_ENTITIES_LIST_TYPE updateEntitiesList;
     DRAW_ENTITIES_LIST_TYPE drawEntitiesList;
 public:
     
 
-    GameEvents();
+    GameEvents() = default;
     ~GameEvents();
 
-    void addUpdateEntity(GameEntity *entity);
+    void addUpdateEntity(std::shared_ptr<GameEntity> entity);
     void notifyUpdateEntities();
-    bool updateListContains(GameEntity *entity);
-    void removeUpdateEntity(GameEntity *entity);
+    bool updateListContains(const GameEntity& entity);
+    void removeUpdateEntity(const GameEntity& entity);
 
-    void addDrawEntity(GameEntity *entity, int layer);
+    void addDrawEntity(std::shared_ptr<GameEntity> entity, int layer);
     void notifyDrawEntities();
-    bool drawListContains(GameEntity *entity);
-    void removeDrawEntity(GameEntity *entity);
+    bool drawListContains(const GameEntity& entity);
+    void removeDrawEntity(const GameEntity& entity);
     
+    ENTITY_MAP& getDrawLayerMap(const int layer);
 
     void notifyAll();
-    void removeFromAll(GameEntity *entity);
+    void removeFromAll(const GameEntity& entity);
 };

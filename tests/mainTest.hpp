@@ -1,7 +1,7 @@
 #pragma once
 #include <math.h>
 #include "../src/GameConfig.hpp"
-#include "../src/GameEntity.hpp"
+#include "../src/Entities/GameEntity.hpp"
 #include "../src/GameEvents.hpp"
 #include "../src/TextureFactory.hpp"
 #include "GameEntityTest.hpp"

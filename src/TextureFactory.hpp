@@ -34,7 +34,7 @@ public:
      * @param key File name of the texture.
      * @return sf::Texture* Pointer to texture.
      */
-    static sf::Texture * getTexture(std::string key);
+    static sf::Texture* getTexture(std::string key);
 
     static void destroy();
 };

@@ -15,6 +15,6 @@ public:
     NoiseBuilder2DPerlin(int seed, double frequency, double amplitude);
     NoiseBuilder2DPerlin(int seed, double frequency, double amplitude, double bias);
     NoiseBuilder2DPerlin(int seed, double frequency, double amplitude, double bias, double xOffset, double yOffset);
-    ~NoiseBuilder2DPerlin();
+    ~NoiseBuilder2DPerlin() = default;
     Noise2D* create();
 };

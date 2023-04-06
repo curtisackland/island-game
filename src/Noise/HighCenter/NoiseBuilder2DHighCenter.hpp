@@ -12,6 +12,6 @@ private:
 
 public:
     NoiseBuilder2DHighCenter(double frequency, double amplitude, double bias, double xOffset, double yOffset);
-    ~NoiseBuilder2DHighCenter();
+    ~NoiseBuilder2DHighCenter() = default;
     Noise2D* create();
 };

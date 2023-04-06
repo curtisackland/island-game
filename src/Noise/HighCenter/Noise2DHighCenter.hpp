@@ -5,7 +5,7 @@
 
 class Noise2DHighCenter : public Noise2D {
 private:
-    static int permutationArray[];
+    static const int permutationArray[];
     double frequency;
     double amplitude;
     double bias;
@@ -14,7 +14,7 @@ private:
 public:
 
     Noise2DHighCenter(double frequency, double amplitude, double bias, double xOffset, double yOffset);
-    ~Noise2DHighCenter();
+    ~Noise2DHighCenter() = default;
     double noise(double x, double y);
     
     inline double getFrequency() const {return this->frequency;}

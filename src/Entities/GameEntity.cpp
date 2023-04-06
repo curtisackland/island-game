@@ -1,5 +1,5 @@
 #include "GameEntity.hpp"
-#include "GameEvents.hpp"
+#include "../GameEvents.hpp"
 
 unsigned long long GameEntity::top_id = 0;
 
@@ -13,6 +13,6 @@ GameEntity::GameEntity(int layer) {
 
 GameEntity::~GameEntity() {
     if (this->eventParent) {
-        eventParent->removeFromAll(this);
+        eventParent->removeFromAll(*this);
     }
 }

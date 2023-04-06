@@ -36,10 +36,6 @@ NoiseBuilder2DPerlin::NoiseBuilder2DPerlin(int seed, double frequency, double am
     this->yOffset = yOffset;
 }
 
-NoiseBuilder2DPerlin::~NoiseBuilder2DPerlin() {
-
-}
-
 Noise2D* NoiseBuilder2DPerlin::create() {
     return new Noise2DPerlin(this->seed, this->frequency, this->amplitude, this->bias, this->xOffset, this->yOffset);
 }

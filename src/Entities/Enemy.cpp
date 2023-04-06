@@ -1,13 +1,9 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(GameEntity* target, int layer) : GameEntity(layer){
+Enemy::Enemy(std::shared_ptr<GameEntity> target, int layer) : GameEntity(layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/enemy.png"));
     loadConfigs();
     this->setPathFindingTarget(target);
-}
-
-Enemy::~Enemy(){
-
 }
 
 int Enemy::getTextureWidth(){

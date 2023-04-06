@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.5)
 
 project(MyProject)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 23)
 
 find_package(SFML 2.5.1 COMPONENTS audio graphics window REQUIRED)
-find_package(Boost 1.79 COMPONENTS json PATHS ${CMAKE_SOURCE_DIR}/libs/ REQUIRED)
+find_package(Boost 1.79 COMPONENTS json unit_test_framework PATHS ${CMAKE_SOURCE_DIR}/libs/ REQUIRED)
 
 # Add library include directory
 include_directories(${SFML_INCLUDE_DIRS})

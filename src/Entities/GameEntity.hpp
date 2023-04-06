@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameMap.hpp"
+#include "../Map/GameMap.hpp"
 
 class GameEvents;
 
@@ -20,11 +20,11 @@ public:
     ~GameEntity();
     virtual void update() = 0;
     virtual void draw() = 0;
-    inline ID_TYPE getId() {return this->id;}
-    inline int getMapLayer() {return this->currentMap;}
-    inline int getDrawLayer() {return this->drawLayer;}
+    inline ID_TYPE getId() const {return this->id;}
+    inline int getMapLayer() const {return this->currentMap;}
+    inline int getDrawLayer() const {return this->drawLayer;}
     inline void setDrawLayer(int drawLayer) {this->drawLayer = drawLayer;}
     inline void setMapLayer(int newMap) {this->currentMap = newMap;}
-    inline GameEvents *getEventParent() {return eventParent;}
+    inline GameEvents *getEventParent() const {return eventParent;}
     inline void setEventParent(GameEvents *eventParent) {this->eventParent = eventParent;}
 };

@@ -1,9 +1,5 @@
-#include "GameEntity.hpp"
+#include "Entities/GameEntity.hpp"
 #include "GameEvents.hpp"
-
-GameEvents::GameEvents() {
-
-}
 
 GameEvents::~GameEvents() {
     // Remove entity references to this object
@@ -17,8 +13,8 @@ GameEvents::~GameEvents() {
     }
 }
 
-void GameEvents::addUpdateEntity(GameEntity *entity) {
-    this->updateEntitiesList.insert(std::pair<int, GameEntity*>(entity->getId(), entity));
+void GameEvents::addUpdateEntity(std::shared_ptr<GameEntity> entity) {
+    this->updateEntitiesList.insert(std::pair<int, std::shared_ptr<GameEntity>>(entity->getId(), entity));
     entity->setEventParent(this);
 }
 
@@ -28,22 +24,21 @@ void GameEvents::notifyUpdateEntities() {
     }
 }
 
-bool GameEvents::updateListContains(GameEntity *entity) {
-    return this->updateEntitiesList.find(entity->getId()) != this->updateEntitiesList.end();
+bool GameEvents::updateListContains(const GameEntity& entity) {
+    return this->updateEntitiesList.find(entity.getId()) != this->updateEntitiesList.end();
 }
 
-void GameEvents::removeUpdateEntity(GameEntity *entity) {
+void GameEvents::removeUpdateEntity(const GameEntity& entity) {
     if (this->updateListContains(entity)) {
-        this->updateEntitiesList.erase(entity->getId());
+        this->updateEntitiesList.erase(entity.getId());
     }
 }
 
-void GameEvents::addDrawEntity(GameEntity *entity, int layer) {
-    if (this->drawEntitiesList.find(layer) == this->drawEntitiesList.end())
-        this->drawEntitiesList.insert(std::pair<int, UPDATE_ENTITIES_LIST_TYPE>(layer, UPDATE_ENTITIES_LIST_TYPE()));
-    this->drawEntitiesList.at(layer).insert(std::pair<int, GameEntity*>(entity->getId(), entity));
+void GameEvents::addDrawEntity(std::shared_ptr<GameEntity> entity, int layer) {
+    this->getDrawLayerMap(layer).insert(std::pair<int, std::shared_ptr<GameEntity>>(entity->getId(), entity));
     entity->setDrawLayer(layer);
     entity->setEventParent(this);
+
 }
 
 void GameEvents::notifyDrawEntities() {
@@ -54,13 +49,13 @@ void GameEvents::notifyDrawEntities() {
     }
 }
 
-bool GameEvents::drawListContains(GameEntity *entity) {
-    return this->drawEntitiesList.find(entity->getId()) != this->drawEntitiesList.end();
+bool GameEvents::drawListContains(const GameEntity& entity) {
+    return this->drawEntitiesList.find(entity.getId()) != this->drawEntitiesList.end();
 }
 
-void GameEvents::removeDrawEntity(GameEntity *entity) {
+void GameEvents::removeDrawEntity(const GameEntity& entity) {
     if (this->drawListContains(entity)) {
-        this->drawEntitiesList.at(entity->getDrawLayer()).erase(entity->getId());
+        this->drawEntitiesList.at(entity.getDrawLayer()).erase(entity.getId());
     }
 }
 
@@ -69,7 +64,16 @@ void GameEvents::notifyAll() {
     this->notifyDrawEntities();
 }
 
-void GameEvents::removeFromAll(GameEntity *entity) {
+void GameEvents::removeFromAll(const GameEntity& entity) {
     this->removeUpdateEntity(entity);
     this->removeDrawEntity(entity);
+}
+
+GameEvents::ENTITY_MAP& GameEvents::getDrawLayerMap(const int layer) {
+    auto find = this->drawEntitiesList.find(layer);
+    if (find == this->drawEntitiesList.end()) {
+        this->drawEntitiesList.insert(std::pair<int, ENTITY_MAP>(layer, ENTITY_MAP()));
+    }
+
+    return this->drawEntitiesList.at(layer);
 }

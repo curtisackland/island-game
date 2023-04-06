@@ -8,10 +8,6 @@ NoiseBuilder2DHighCenter::NoiseBuilder2DHighCenter(double frequency, double ampl
     this->yOffset = yOffset;
 }
 
-NoiseBuilder2DHighCenter::~NoiseBuilder2DHighCenter() {
-
-}
-
 Noise2D* NoiseBuilder2DHighCenter::create() {
     return new Noise2DHighCenter(this->frequency, this->amplitude, this->bias, this->xOffset, this->yOffset);
 }

@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameConfig.hpp"
+#include "../GameConfig.hpp"
 #include "GameEntity.hpp"
-#include "MainWindow.hpp"
-#include "GameState.hpp"
-#include "GameMap.hpp"
-#include "TextureFactory.hpp"
-#include "MainView.hpp"
+#include "../MainWindow.hpp"
+#include "../GameState.hpp"
+#include "../Map/GameMap.hpp"
+#include "../TextureFactory.hpp"
+#include "../MainView.hpp"
 #include <math.h>
 /**
  * @brief Controls all attributes of the player and its sprite

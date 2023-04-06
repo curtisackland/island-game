@@ -1,14 +1,7 @@
 #include "GameMap.hpp"
 
-GameMap::GameMap() : chunkSize(GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("chunk-size").as_int64()) {
+GameMap:: GameMap() : chunkSize(GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("chunk-size").as_int64()) {
     this->generationSeed = 1;
-}
-
-GameMap::~GameMap() {
-    for (auto chunk : this->map) {
-        delete chunk.second;
-        chunk.second = nullptr;
-    }
 }
 
 Tile* GameMap::getTile(int x, int y) {

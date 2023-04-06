@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameMap.hpp"
+#include "Map/GameMap.hpp"
 /**
  * @brief Holds the current state of the game so other classes can use these variables to update their own states
  * 

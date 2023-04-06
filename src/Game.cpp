@@ -9,7 +9,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
     MainView::getInstance().setSize(MainWindow::getInstance().getSize().x, MainWindow::getInstance().getSize().y);
 
     // Player setup
-    this->player = new Player(0);
+    this->player = std::make_shared<Player>(0);
     this->player->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
     this->player->setOrigin(this->player->getLocalBounds().width/2, this->player->getLocalBounds().width/2);
     this->player->setPosition(25, 25); 
@@ -24,14 +24,7 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
 }
 
 Game::~Game() {
-    delete this->player;
     delete this->view;
-    for (auto enemy : *this->enemies) {
-        delete enemy;
-        enemy = nullptr;
-    }
-    delete this->enemies;
-    this->enemies = nullptr;
 
     MainWindow::destroy();
     MainView::destroy();
@@ -92,10 +85,11 @@ void Game::drawMap(){
     }
 }
 
-std::vector<Enemy*> * Game::spawnEnemiesOnMap(int layer) {
-    std::vector<Enemy*>* ret = new std::vector<Enemy*>;
+std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> Game::spawnEnemiesOnMap(const int layer) {
+    std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> ret = std::make_shared<std::vector<std::shared_ptr<Enemy>>>();
     for(int i = 0; i < 1; i++){
-        ret->push_back(new Enemy(player, layer));
+        new Enemy(player, layer);
+        ret->emplace_back(std::make_shared<Enemy>(player, layer));
         ret->at(i)->setPosition(300, 300);
         ret->at(i)->setScale((float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) MainView::getInstance().getSize().x/50)/(float) this->player->getTextureWidth());
         ret->at(i)->setOrigin(ret->at(i)->getLocalBounds().width/2, ret->at(i)->getLocalBounds().width/2);
