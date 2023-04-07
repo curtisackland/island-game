@@ -1,9 +1,7 @@
 /**
  * @file TextureFactory.hpp
- * @author Evan Goldrick (goldrickevan@gmail.com)
  * @brief Load shared reference to textures from disk
  * @version 0.1
- * @date 2022-06-01
  * 
  * @copyright Copyright (c) 2022
  * 

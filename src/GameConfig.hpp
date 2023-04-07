@@ -1,9 +1,7 @@
 /**
  * @file GameConfig.hpp
- * @author Evan Goldrick (goldrickevan@gmail.com)
  * @brief Singleton class to read json files
  * @version 0.1
- * @date 2022-05-30
  * 
  * @copyright Copyright (c) 2022
  * 

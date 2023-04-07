@@ -1,5 +1,5 @@
 #pragma once
-#include "../src/Entities/GameEntity.hpp"
+#include "../../../src/Entities/GameEntity.hpp"
 class GameEntityTest : public GameEntity {
 private:
     bool internalVariable = false;
