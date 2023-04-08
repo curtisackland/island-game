@@ -19,7 +19,9 @@ protected:
     std::shared_ptr<GameState> gameStatePtr;
 public:
     GameEntity(const std::shared_ptr<GameState>& state, int layer);
-    ~GameEntity();
+    ~GameEntity() = default;
+    void releaseReferences();
+
     virtual void update() = 0;
     virtual void draw() = 0;
     inline ID_TYPE getId() const {return this->id;}

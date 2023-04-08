@@ -23,13 +23,26 @@ Game::Game() : tilesPerWindowWidth(GameConfig::getInstance().getJson("resources/
 }
 
 Game::~Game() {
+    printf("%ld\n", this->state.use_count());
+    printf("%ld\n", this->player.use_count());
+    printf("%ld\n", this->enemies->at(0).use_count());
+
+    this->childrenReleaseReferences();
+    this->eventSystem.releaseReferences();
+    this->state->destroy();
     TextureFactory::destroy();
     GameConfig::destroy();
-    this->state->destroy();
 
     printf("%ld\n", this->state.use_count());
     printf("%ld\n", this->player.use_count());
     printf("%ld\n", this->enemies->at(0).use_count());
+}
+
+void Game::childrenReleaseReferences() {
+    this->player->releaseReferences();
+    for (auto e : *this->enemies) {
+        e->releaseReferences();
+    }
 }
 
 void Game::gameLoop() {

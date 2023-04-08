@@ -1,13 +1,13 @@
 #include "Player.hpp"
 
-Player::Player(std::shared_ptr<GameState> state, int layer) : GameEntity(state, layer){
+Player::Player(const std::shared_ptr<GameState>& state, int layer) : GameEntity(state, layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/player.png"));
     this->setMapLayer(0);
     this->loadConfigs();
 }
 
-Player::~Player() {
-    
+void Player::releaseReferences() {
+    GameEntity::releaseReferences();
 }
 
 int Player::getTextureWidth(){

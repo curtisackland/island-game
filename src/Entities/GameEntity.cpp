@@ -12,7 +12,8 @@ GameEntity::GameEntity(const std::shared_ptr<GameState>& state, int layer) {
     this->speed = 0;
 }
 
-GameEntity::~GameEntity() {
+void GameEntity::releaseReferences() {
+    this->gameStatePtr.reset();
     if (this->eventParent) {
         eventParent->removeFromAll(*this);
     }

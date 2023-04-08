@@ -17,6 +17,7 @@ public:
 
     GameEvents() = default;
     ~GameEvents();
+    void releaseReferences();
 
     void addUpdateEntity(std::shared_ptr<GameEntity> entity);
     void notifyUpdateEntities();

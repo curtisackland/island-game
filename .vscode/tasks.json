@@ -4,9 +4,18 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build Debug",
+            "label": "Build Debug Game",
             "type": "shell",
-            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -B ./build -S . && make -j$(nproc) -C ./build",
+            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -B ./build -S . && make -j$(nproc) -C ./build island-game",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build Debug Test",
+            "type": "shell",
+            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -B ./build -S . && make -j$(nproc) -C ./build test",
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -2,9 +2,9 @@
 
 CaveMap::CaveMap() : GameMap(){
     this->layeredNoise = std::make_unique<LayeredNoise2D>();
-    layeredNoise->addLayer(new NoiseBuilder2DPerlin(651, 0.1, 30, 30));
-    layeredNoise->addLayer(new NoiseBuilder2DPerlin(127643, 0.2, 10, 10));
-    layeredNoise->addLayer(new NoiseBuilder2DPerlin(1230, 0.4, 5, 5));
+    layeredNoise->addLayer(std::make_unique<Noise2DPerlin>(651, 0.1, 30, 30, 0, 0));
+    layeredNoise->addLayer(std::make_unique<Noise2DPerlin>(127643, 0.2, 10, 10, 0, 0));
+    layeredNoise->addLayer(std::make_unique<Noise2DPerlin>(1230, 0.4, 5, 5, 0, 0));
 }
 
 void CaveMap::generate(int chunkX, int chunkY) {

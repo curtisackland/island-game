@@ -26,17 +26,18 @@ class Game {
 
         const int tilesPerWindowWidth; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
         std::shared_ptr<Player> player; // The player
+        std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> enemies;
 
         sf::Clock clock; // Game clock
         float deltaTime; // Time since last frame
 
         int currentMap;
 
-        std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> enemies;
         GameEvents eventSystem;
     public:
         Game();
         ~Game();
+        void childrenReleaseReferences();
 
         void gameLoop(); // Runs the game
         void drawMap(); // Draws tiles that are in the player's fov

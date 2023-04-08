@@ -15,7 +15,7 @@ public:
 
     Noise2DHighCenter(double frequency, double amplitude, double bias, double xOffset, double yOffset);
     ~Noise2DHighCenter() = default;
-    double noise(double x, double y);
+    double noise(double x, double y) const;
     
     inline double getFrequency() const {return this->frequency;}
     inline void setFrequency(double const frequency) {this->frequency = frequency;}

@@ -2,16 +2,11 @@
 
 IslandMap::IslandMap() : GameMap(){
     this->layeredNoise = new LayeredNoise2D();
-    layeredNoise->addLayer(new NoiseBuilder2DHighCenter(2, 50, 0, 0, 0));
-    layeredNoise->addLayer(new NoiseBuilder2DPerlin(86747272, 0.2, 20, 20));
-    layeredNoise->addLayer(new NoiseBuilder2DPerlin(27074768, 0.4, 10, 10));
+    layeredNoise->addLayer(std::make_unique<Noise2DHighCenter>(2, 50, 0, 0, 0));
+    layeredNoise->addLayer(std::make_unique<Noise2DPerlin>(86747272, 0.2, 20, 20, 0, 0));
+    layeredNoise->addLayer(std::make_unique<Noise2DPerlin>(27074768, 0.4, 10, 10, 0, 0));
 }
-
-IslandMap::~IslandMap() {
-    delete this->layeredNoise;
-    this->layeredNoise = nullptr;
-}
-
+    
 void IslandMap::generate(int chunkX, int chunkY) {
     MapChunk *newMapChunk = new MapChunk(chunkX, chunkY);
     for (int x = 0; x < this->chunkSize; ++x) {

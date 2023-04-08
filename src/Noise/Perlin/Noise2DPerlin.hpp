@@ -16,8 +16,8 @@ public:
 
     Noise2DPerlin(int seed, double frequency, double amplitude, double bias, double xOffset, double yOffset);
     ~Noise2DPerlin();
-    double noise(double x, double y);
-    inline int getPermutationArray(int index);
+    double noise(double x, double y) const;
+    inline int getPermutationArray(int index) const;
 
     inline static double lerp(double a, double b, double factor);
     inline static double fade(double t);

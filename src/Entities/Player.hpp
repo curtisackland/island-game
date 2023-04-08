@@ -14,8 +14,9 @@ class Player : public GameEntity {
     private:
         const float diagonalScalar = sin(45); // Scalar for moving diagonally
     public:
-        Player(std::shared_ptr<GameState> state, int layer);
-        ~Player();
+        Player(const std::shared_ptr<GameState>& state, int layer);
+        ~Player() = default;
+        void releaseReferences();
 
         int getTextureWidth(); // returns the width of the texture
         void update();

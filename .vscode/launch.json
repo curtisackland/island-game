@@ -26,7 +26,7 @@
                 "ignoreFailures": true
             }
         ],
-        "preLaunchTask": "Build Debug"
+        "preLaunchTask": "Build Debug Game"
     },
     {
         "name": "(gdb) Test",
@@ -51,7 +51,7 @@
                 "ignoreFailures": true
             }
         ],
-        "preLaunchTask": "Build Debug"
+        "preLaunchTask": "Build Debug Test"
     },
     {
         "name": "Run Release",

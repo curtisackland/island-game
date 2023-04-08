@@ -13,6 +13,14 @@ GameEvents::~GameEvents() {
     }
 }
 
+void GameEvents::releaseReferences() {
+    this->updateEntitiesList.clear();
+    for (auto layer : this->drawEntitiesList) {
+        layer.second.clear();
+    }
+    this->drawEntitiesList.clear();
+}
+
 void GameEvents::addUpdateEntity(std::shared_ptr<GameEntity> entity) {
     this->updateEntitiesList.insert(std::pair<int, std::shared_ptr<GameEntity>>(entity->getId(), entity));
     entity->setEventParent(this);
