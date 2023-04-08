@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Entities/Player.hpp"
+#include "GameState/GameState.hpp"
 #include "Map/GameMap.hpp"
 #include "Map/IslandMap.hpp"
 #include "Map/CaveMap.hpp"
@@ -12,8 +13,7 @@
 #include "GameEvents.hpp"
 #include "Entities/GameEntity.hpp"
 #include "Entities/Enemy.hpp"
-#include "MainWindow.hpp"
-#include "MainView.hpp"
+
 #include <math.h>
 #include <vector>
 /**
@@ -22,12 +22,16 @@
  */
 class Game {
     private:
+        std::shared_ptr<GameState> state;
+
         const int tilesPerWindowWidth; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
         std::shared_ptr<Player> player; // The player
+
         sf::Clock clock; // Game clock
         float deltaTime; // Time since last frame
+
         int currentMap;
-        sf::View* view; // View of the map, focussed on player
+
         std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> enemies;
         GameEvents eventSystem;
     public:

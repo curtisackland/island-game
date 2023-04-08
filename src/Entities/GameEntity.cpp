@@ -3,7 +3,8 @@
 
 unsigned long long GameEntity::top_id = 0;
 
-GameEntity::GameEntity(int layer) {
+GameEntity::GameEntity(const std::shared_ptr<GameState>& state, int layer) {
+    this->gameStatePtr = state;
     this->id = top_id++;
     this->setMapLayer(layer);
     this->setDrawLayer(0);

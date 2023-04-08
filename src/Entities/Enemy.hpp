@@ -4,8 +4,7 @@
 #include "GameEntity.hpp"
 #include "../Map/GameMap.hpp"
 #include "../GameConfig.hpp"
-#include "../MainWindow.hpp"
-#include "../GameState.hpp"
+#include "../GameState/GameState.hpp"
 #include "../PathFindingNode.hpp"
 #include <stdio.h>
 #include <queue>
@@ -21,7 +20,7 @@ class Enemy : public GameEntity {
         bool static Compare(PathFindingNode *left, PathFindingNode *right);
         void addNode(int x, int y, int tx, int ty, int gcost, PathFindingNode *node, std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> &fringe);
     public:
-        Enemy(std::shared_ptr<GameEntity> target, int layer);
+        Enemy(std::shared_ptr<GameState> state, std::shared_ptr<GameEntity> target, int layer);
         ~Enemy() = default;
 
         int getTextureWidth(); // returns the width of the texture

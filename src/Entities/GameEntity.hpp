@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../GameState/GameState.hpp"
 #include "../Map/GameMap.hpp"
 
 class GameEvents;
@@ -15,8 +16,9 @@ private:
 protected:
     int currentMap;
     float speed;
+    std::shared_ptr<GameState> gameStatePtr;
 public:
-    GameEntity(int layer);
+    GameEntity(const std::shared_ptr<GameState>& state, int layer);
     ~GameEntity();
     virtual void update() = 0;
     virtual void draw() = 0;

@@ -5,7 +5,8 @@
 #define RESOURCES_IMAGES_STONE 1
 #define RESOURCES_IMAGES_STONE_PATH "resources/images/stone.png"
 
-#define TILE_SIZE_CONSTRUCTOR MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double()
+// TODO: switch how tile size is calculated
+#define TILE_SIZE_CONSTRUCTOR 1600 / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double()
 
 Tile::Tile(int xIndex, int yIndex) : sf::Sprite(), tileSize(TILE_SIZE_CONSTRUCTOR) {
     this->setDefinedTexture(-1);

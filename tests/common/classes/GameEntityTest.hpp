@@ -5,7 +5,7 @@ private:
     bool internalVariable = false;
     bool internalVariable2 = false;
 public:
-    GameEntityTest(int layer);
+    GameEntityTest(std::shared_ptr<GameState> gameStatePtr, int layer);
     ~GameEntityTest();
     void update();
     void draw();

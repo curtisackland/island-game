@@ -1,6 +1,6 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(std::shared_ptr<GameEntity> target, int layer) : GameEntity(layer){
+Enemy::Enemy(std::shared_ptr<GameState> state, std::shared_ptr<GameEntity> target, int layer) : GameEntity(state, layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/enemy.png"));
     loadConfigs();
     this->setPathFindingTarget(target);
@@ -19,7 +19,7 @@ void Enemy::update() {
     double targetX = pathfindingTarget->getPosition().x;
     double targetY = pathfindingTarget->getPosition().y;
 
-    double scaleBacktoPosition = MainView::getInstance().getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
+    double scaleBacktoPosition = this->gameStatePtr->getMainView()->getSize().x / GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double();
     //tile position of target
     int targetTileX = floor(pathfindingTarget->getPosition().x/scaleBacktoPosition);
     int targetTileY = floor(pathfindingTarget->getPosition().y/scaleBacktoPosition);
@@ -88,11 +88,11 @@ void Enemy::update() {
     }
 
     this->setRotation(rot * (180/M_PI));
-    this->move(GameState::getDeltaTime()*this->speed*sin(rot), -GameState::getDeltaTime()*this->speed*cos(rot));
+    this->move(this->gameStatePtr->getTiming().getDeltaTime()*this->speed*sin(rot), -this->gameStatePtr->getTiming().getDeltaTime()*this->speed*cos(rot));
 }
 
 void Enemy::draw() {
-    MainWindow::getInstance().draw(*(this));
+    this->gameStatePtr->getMainWindow()->draw(*this);
 }
 
 const boost::json::object& Enemy::getMyConfigFile() {
@@ -111,8 +111,8 @@ double Enemy::calculateHeuristic(int x1, int y1, int x2, int y2){
 }
 
 void Enemy::addNode(int x, int y, int targetX, int targetY, int gcost, PathFindingNode *node, std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> &fringe){
-    if(GameState::getMaps()->at(this->currentMap)->getTile(x, y)->isWalkable()){
-        GameState::getMaps()->at(this->currentMap)->getTile(x, y)->setDefinedTexture(3);
+    if(this->gameStatePtr->getMaps()->at(this->currentMap)->getTile(x, y)->isWalkable()){
+        this->gameStatePtr->getMaps()->at(this->currentMap)->getTile(x, y)->setDefinedTexture(3);
         fringe.push(new PathFindingNode(
             x, 
             y,

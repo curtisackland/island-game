@@ -2,8 +2,8 @@
 #include <string.h>
 #include <SFML/Graphics.hpp>
 #include "../TextureFactory.hpp"
-#include "../MainView.hpp"
 #include "../GameConfig.hpp"
+
 /**
  * @brief Controls all attributes of the tile and its sprite
  * 
