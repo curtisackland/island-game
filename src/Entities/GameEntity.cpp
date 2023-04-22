@@ -1,11 +1,8 @@
 #include "GameEntity.hpp"
 #include "../GameEvents.hpp"
 
-unsigned long long GameEntity::top_id = 0;
-
-GameEntity::GameEntity(const std::shared_ptr<GameState>& state, int layer) {
-    this->gameStatePtr = state;
-    this->id = top_id++;
+GameEntity::GameEntity(GameEntity::ID_TYPE id, int layer) {
+    this->id = id;
     this->setMapLayer(layer);
     this->setDrawLayer(0);
     this->eventParent = nullptr;
@@ -13,7 +10,6 @@ GameEntity::GameEntity(const std::shared_ptr<GameState>& state, int layer) {
 }
 
 void GameEntity::releaseReferences() {
-    this->gameStatePtr.reset();
     if (this->eventParent) {
         eventParent->removeFromAll(*this);
     }

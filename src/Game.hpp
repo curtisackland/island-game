@@ -22,8 +22,6 @@
  */
 class Game {
     private:
-        std::shared_ptr<GameState> state;
-
         const int tilesPerWindowWidth; // Tile size is based on window width (ex. 30 means tiles are size = window width/30)
         std::shared_ptr<Player> player; // The player
         std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> enemies;

@@ -1,6 +1,6 @@
 #include "GameEntityTest.hpp"
 
-GameEntityTest::GameEntityTest(std::shared_ptr<GameState> gameStatePtr, int layer) : GameEntity(gameStatePtr, layer) {
+GameEntityTest::GameEntityTest(int id, int layer) : GameEntity(id, layer) {
 
 }
 

@@ -9,16 +9,14 @@ class GameEntity : public sf::Sprite {
 public:
     typedef unsigned long long ID_TYPE;
 private:
-    static ID_TYPE top_id;
     ID_TYPE id;
     int drawLayer;
     GameEvents *eventParent;
 protected:
     int currentMap;
     float speed;
-    std::shared_ptr<GameState> gameStatePtr;
 public:
-    GameEntity(const std::shared_ptr<GameState>& state, int layer);
+    GameEntity(ID_TYPE id, int layer);
     ~GameEntity() = default;
     void releaseReferences();
 

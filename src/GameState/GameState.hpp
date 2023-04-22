@@ -10,7 +10,7 @@
  */
 class GameState{
 private:
-
+    static std::unique_ptr<GameState> instance;
     std::unique_ptr<std::vector<std::unique_ptr<GameMap>>> maps; // Island map
     int currentMap;
     const int tileSize = 30;
@@ -20,12 +20,13 @@ private:
 
     Timing timing;
     std::unique_ptr<MapInfo> mapInfo;
+    GameState();
+    ~GameState();
 public:
-    GameState() = default;
-    ~GameState() = default;
+    static GameState& getInstance();
+    void setup(unsigned int windowWidth, unsigned int windowHeight);
     void destroy();
 
-    void setup();
     std::unique_ptr<std::vector<std::unique_ptr<GameMap>>>& getMaps() {return maps;}
     std::unique_ptr<sf::RenderWindow>& getMainWindow() {return this->mainWindow;}
     std::unique_ptr<sf::View>& getMainView() {return this->mainView;}
@@ -33,6 +34,6 @@ public:
 
     Timing& getTiming() {return this->timing;}
 
-    int getCurrentMap(){return currentMap;}
-    void setCurrentMap(int layer);
+    inline int getCurrentMapLayer() {return GameState::currentMap;}
+    inline void setCurrentMapLayer(int layer) {GameState::currentMap = layer;};
 };

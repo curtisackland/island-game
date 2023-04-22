@@ -14,7 +14,7 @@ class Player : public GameEntity {
     private:
         const float diagonalScalar = sin(45); // Scalar for moving diagonally
     public:
-        Player(const std::shared_ptr<GameState>& state, int layer);
+        Player(GameEntity::ID_TYPE id, int layer);
         ~Player() = default;
         void releaseReferences();
 

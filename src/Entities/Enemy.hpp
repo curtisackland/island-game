@@ -20,7 +20,7 @@ class Enemy : public GameEntity {
         bool static Compare(PathFindingNode *left, PathFindingNode *right);
         void addNode(int x, int y, int tx, int ty, int gcost, PathFindingNode *node, std::priority_queue<PathFindingNode*, std::vector<PathFindingNode*>, decltype(&Compare)> &fringe);
     public:
-        Enemy(const std::shared_ptr<GameState>& state, std::shared_ptr<GameEntity> target, int layer);
+        Enemy(GameEntity::ID_TYPE id, std::shared_ptr<GameEntity> target, int layer);
         ~Enemy() = default;
         void releaseReferences();
 

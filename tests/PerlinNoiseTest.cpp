@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "../src/Noise/LayeredNoise2D.hpp"
-#include "../src/Noise/Perlin/NoiseBuilder2DPerlin.hpp"
-#include "../src/Noise/HighCenter/NoiseBuilder2DHighCenter.hpp"
+#include "../src/Noise/Perlin/Noise2DPerlin.hpp"
+#include "../src/Noise/HighCenter/Noise2DHighCenter.hpp"
 
 BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DOneLayerTest) {
     sf::Image i;
     i.create(1920, 1080);
     LayeredNoise2D *noise = new LayeredNoise2D();
-    noise->addLayer(new NoiseBuilder2DPerlin(0, 0.01, 127.5, 127.5));
+    noise->addLayer(std::make_unique<Noise2DPerlin>(0, 0.01, 127.5, 127.5, 0, 0));
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {
@@ -69,9 +69,9 @@ BOOST_AUTO_TEST_CASE(LayeredNoise2DManyLayerTest) {
     sf::Image i;
     i.create(1000, 1000);
     LayeredNoise2D *noise = new LayeredNoise2D();
-    noise->addLayer(new NoiseBuilder2DHighCenter(0.02, 50, 0, 0, 0));
-    noise->addLayer(new NoiseBuilder2DPerlin(86747272, 0.002, 20, 20));
-    noise->addLayer(new NoiseBuilder2DPerlin(27074768, 0.004, 10, 10));
+    noise->addLayer(std::make_unique<Noise2DHighCenter>(0.02, 50, 0, 0, 0));
+    noise->addLayer(std::make_unique<Noise2DPerlin>(86747272, 0.002, 20, 20, 0, 0));
+    noise->addLayer(std::make_unique<Noise2DPerlin>(27074768, 0.004, 10, 10, 0, 0));
 
     for (unsigned int x = 0; x < i.getSize().x; ++x) {
         for (unsigned int y = 0; y < i.getSize().y; ++y) {

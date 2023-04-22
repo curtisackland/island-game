@@ -1,6 +1,6 @@
 #include "Player.hpp"
 
-Player::Player(const std::shared_ptr<GameState>& state, int layer) : GameEntity(state, layer){
+Player::Player(GameEntity::ID_TYPE id, int layer) : GameEntity(id, layer){
     this->setTexture(*TextureFactory::getTexture("resources/images/player.png"));
     this->setMapLayer(0);
     this->loadConfigs();
@@ -22,70 +22,70 @@ void Player::update() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        int x = (int) floor((this->getPosition().x-speed*this->gameStatePtr->getTiming().getDeltaTime() - this->getGlobalBounds().width/2)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int x = (int) floor((this->getPosition().x-speed*GameState::getInstance().getTiming().getDeltaTime() - this->getGlobalBounds().width/2)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
 
-        if((this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y1)->isWalkable())
-            || (this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y2)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y2)->isWalkable())){
+        if((this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y1)->isWalkable())
+            || (this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y2)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y2)->isWalkable())){
 
         }else {
-            this->move(-this->speed*this->gameStatePtr->getTiming().getDeltaTime(), 0);
+            this->move(-this->speed*GameState::getInstance().getTiming().getDeltaTime(), 0);
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        int x = (int) floor((this->getPosition().x + this->speed*this->gameStatePtr->getTiming().getDeltaTime() + this->getGlobalBounds().width/2)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int x = (int) floor((this->getPosition().x + this->speed*GameState::getInstance().getTiming().getDeltaTime() + this->getGlobalBounds().width/2)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int y1 = (int) floor((this->getPosition().y + this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int y2 = (int) floor((this->getPosition().y - this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
 
-        if((this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y1)->isWalkable())
-            || (this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y2)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x, y2)->isWalkable())){
+        if((this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y1)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y1)->isWalkable())
+            || (this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y2)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x, y2)->isWalkable())){
 
         } else {
-            this->move(this->speed*this->gameStatePtr->getTiming().getDeltaTime(), 0);
+            this->move(this->speed*GameState::getInstance().getTiming().getDeltaTime(), 0);
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int y = (int) floor((this->getPosition().y - this->speed*this->gameStatePtr->getTiming().getDeltaTime() - this->getGlobalBounds().height/2)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int y = (int) floor((this->getPosition().y - this->speed*GameState::getInstance().getTiming().getDeltaTime() - this->getGlobalBounds().height/2)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
 
-        if((this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x1, y)->isWalkable())
-            || (this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x2, y)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x2, y)->isWalkable())){
+        if((this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x1, y)->isWalkable())
+            || (this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x2, y)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x2, y)->isWalkable())){
         } else {
-            this->move(0, -this->speed*this->gameStatePtr->getTiming().getDeltaTime());
+            this->move(0, -this->speed*GameState::getInstance().getTiming().getDeltaTime());
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
-        int y = (int) floor((this->getPosition().y + this->speed*this->gameStatePtr->getTiming().getDeltaTime() + this->getGlobalBounds().height/2)/this->gameStatePtr->getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int x1 = (int) floor((this->getPosition().x + this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int x2 = (int) floor((this->getPosition().x - this->getGlobalBounds().width/4)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
+        int y = (int) floor((this->getPosition().y + this->speed*GameState::getInstance().getTiming().getDeltaTime() + this->getGlobalBounds().height/2)/GameState::getInstance().getMainView()->getSize().x * GameConfig::getInstance().getJson("resources/configs/const-settings.json").at("map").at("tiles-per-window-width").as_double());
 
-        if((this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x1, y)->isWalkable())
-            || (this->getGlobalBounds().intersects(this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x2, y)->getGlobalBounds()) 
-            && !this->gameStatePtr->getMaps()->at(this->getMapLayer())->getTile(x2, y)->isWalkable())){
+        if((this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x1, y)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x1, y)->isWalkable())
+            || (this->getGlobalBounds().intersects(GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x2, y)->getGlobalBounds()) 
+            && !GameState::getInstance().getMaps()->at(this->getMapLayer())->getTile(x2, y)->isWalkable())){
         } else {
-            this->move(0, this->speed*this->gameStatePtr->getTiming().getDeltaTime());
+            this->move(0, this->speed*GameState::getInstance().getTiming().getDeltaTime());
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
         GameConfig::getInstance().forceRead();
     }
-    this->setRotation(180 - atan2(sf::Mouse::getPosition(*this->gameStatePtr->getMainWindow()).x - (float) this->gameStatePtr->getMainWindow()->getSize().x/2, sf::Mouse::getPosition(*this->gameStatePtr->getMainWindow()).y - (float) this->gameStatePtr->getMainWindow()->getSize().y/2) * (180/M_PI));
+    this->setRotation(180 - atan2(sf::Mouse::getPosition(*GameState::getInstance().getMainWindow()).x - (float) GameState::getInstance().getMainWindow()->getSize().x/2, sf::Mouse::getPosition(*GameState::getInstance().getMainWindow()).y - (float) GameState::getInstance().getMainWindow()->getSize().y/2) * (180/M_PI));
 }
 
 void Player::draw() {
-    this->gameStatePtr->getMainWindow()->draw(*this);
+    GameState::getInstance().getMainWindow()->draw(*this);
 }
 
 const boost::json::object& Player::getMyConfigFile() {
