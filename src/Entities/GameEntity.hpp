@@ -1,7 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../GameState/GameState.hpp"
-#include "../Map/GameMap.hpp"
 
 class GameEvents;
 

@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(GameEntity::ID_TYPE id, int layer) : GameEntity(id, layer){
-    this->setTexture(*TextureFactory::getTexture("resources/images/player.png"));
+    this->setTexture(*GameState::getInstance().getTextureFactory().getTexture("resources/images/player.png"));
     this->setMapLayer(0);
     this->loadConfigs();
 }
@@ -93,5 +93,5 @@ const boost::json::object& Player::getMyConfigFile() {
 }
 
 void Player::loadConfigs() {
-    this->setTexture(*TextureFactory::getTexture(this->getMyConfigFile().at("default_texture").as_string().c_str()));
+    this->setTexture(*GameState::getInstance().getTextureFactory().getTexture(this->getMyConfigFile().at("default_texture").as_string().c_str()));
 }

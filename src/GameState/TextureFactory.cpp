@@ -1,5 +1,16 @@
 #include "TextureFactory.hpp"
 
+TextureFactory::TextureFactory() {
+    this->throwOnMissingImage = false;
+}
+
+TextureFactory::~TextureFactory() {
+    for (auto tex : this->textures) {
+        delete tex.second;
+        tex.second = nullptr;
+    }
+}
+
 std::unordered_map<std::string, sf::Texture*> TextureFactory::textures;
 
 sf::Texture* TextureFactory::getTexture(std::string key) {
@@ -12,17 +23,10 @@ sf::Texture* TextureFactory::getTexture(std::string key) {
             TextureFactory::textures.insert(std::pair<std::string, sf::Texture*>(key, texture));
         } else {
             fprintf(stderr, "\x1B[33mWarning: Error loading sprite \"%s\".\n\x1B[0m", key.c_str());
-            if (!texture->loadFromFile("resources/images/no-texture.png")) {
+            if (!texture->loadFromFile("resources/images/no-texture.png") || this->throwOnMissingImage) {
                 throw std::ifstream::failure("Error loading sprite");
             }
         }
         return texture;
-    }
-}
-
-void TextureFactory::destroy() {
-    for (auto tex : TextureFactory::textures) {
-        delete tex.second;
-        tex.second = nullptr;
     }
 }

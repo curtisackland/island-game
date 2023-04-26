@@ -1,7 +1,7 @@
 #pragma once
 #include <string.h>
 #include <SFML/Graphics.hpp>
-#include "../TextureFactory.hpp"
+#include "../GameState/TextureFactory.hpp"
 #include "../GameConfig.hpp"
 
 /**

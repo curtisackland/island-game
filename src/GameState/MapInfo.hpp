@@ -1,3 +1,5 @@
+#pragma once
+
 class MapInfo {
 private:
     double tileSize;

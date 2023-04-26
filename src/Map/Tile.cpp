@@ -1,4 +1,5 @@
 #include "Tile.hpp"
+#include "../GameState/GameState.hpp"
 
 #define RESOURCES_IMAGES_GRASS 0
 #define RESOURCES_IMAGES_GRASS_PATH "resources/images/grass.png"
@@ -51,8 +52,8 @@ void Tile::setDefinedTexture(int textureNumber) {
             throw new std::out_of_range(err.c_str());
             break;
     }
-    this->setTexture(*(TextureFactory::getTexture("resources/images/" + tile)), true);
-    this->setScale((TILE_SIZE_CONSTRUCTOR) / (TextureFactory::getTexture("resources/images/" + tile)->getSize().x), (TILE_SIZE_CONSTRUCTOR)/(TextureFactory::getTexture("resources/images/" + tile)->getSize().y));
+    this->setTexture(*(GameState::getInstance().getTextureFactory().getTexture("resources/images/" + tile)), true);
+    this->setScale((TILE_SIZE_CONSTRUCTOR) / (GameState::getInstance().getTextureFactory().getTexture("resources/images/" + tile)->getSize().x), (TILE_SIZE_CONSTRUCTOR)/(GameState::getInstance().getTextureFactory().getTexture("resources/images/" + tile)->getSize().y));
 }
 
 int Tile::getTextureWidth(){

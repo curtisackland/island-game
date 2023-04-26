@@ -26,7 +26,6 @@ Game::~Game() {
     this->childrenReleaseReferences();
     this->eventSystem.releaseReferences();
     GameState::getInstance().destroy();
-    TextureFactory::destroy();
     GameConfig::destroy();
 
     printf("%ld\n", this->player.use_count());
@@ -94,13 +93,13 @@ void Game::drawMap(){
 
 std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> Game::spawnEnemiesOnMap(const int layer) {
     std::shared_ptr<std::vector<std::shared_ptr<Enemy>>> ret = std::make_shared<std::vector<std::shared_ptr<Enemy>>>();
-    for(int i = 0; i < 1; i++){
-        ret->push_back(std::make_shared<Enemy>(player, layer));
+    /*for(int i = 0; i < 1; i++){
+        ret->push_back(std::make_shared<Enemy>(PlayerFactory::create(GameState::getInstance().getEntityManager(), player, layer));
         ret->at(i)->setPosition(300, 300);
         ret->at(i)->setScale((float) ((float) GameState::getInstance().getMainView()->getSize().x/50)/(float) this->player->getTextureWidth(), (float) ((float) GameState::getInstance().getMainView()->getSize().x/50)/(float) this->player->getTextureWidth());
         ret->at(i)->setOrigin(ret->at(i)->getLocalBounds().width/2, ret->at(i)->getLocalBounds().width/2);
         this->eventSystem.addUpdateEntity(ret->at(i));
         this->eventSystem.addDrawEntity(ret->at(i), 0);
-    }
+    }*/
     return ret;
 }

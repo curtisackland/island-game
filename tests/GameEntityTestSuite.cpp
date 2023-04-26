@@ -6,7 +6,7 @@
 BOOST_AUTO_TEST_SUITE(GameEntityTestSuite)
 
 BOOST_AUTO_TEST_CASE(ConstructorDestructor) {
-    GameEntityTest entity(nullptr, 0);
+    GameEntityTest entity(0, 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -24,15 +24,18 @@ private:
      * 
      */
     static std::unordered_map<std::string, sf::Texture*> textures;
+    bool throwOnMissingImage;
 
 public:
+    TextureFactory();
+    ~TextureFactory();
     /**
      * @brief Get a Texture pointer.
      * Get a shared pointer to a texture, if the texture is not already loaded, it will be read from disk.
      * @param key File name of the texture.
      * @return sf::Texture* Pointer to texture.
      */
-    static sf::Texture* getTexture(std::string key);
-
-    static void destroy();
+    sf::Texture* getTexture(std::string key);
+    bool getThrowOnMissingImage() {return throwOnMissingImage;}
+    void setThrowOnMissingImage(bool set) {throwOnMissingImage = set;}
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../TextureFactory.hpp"
+#include "../GameState/TextureFactory.hpp"
 #include "GameEntity.hpp"
 #include "../Map/GameMap.hpp"
 #include "../GameConfig.hpp"

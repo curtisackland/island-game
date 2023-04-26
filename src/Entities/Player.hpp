@@ -4,7 +4,7 @@
 #include "GameEntity.hpp"
 #include "../GameState/GameState.hpp"
 #include "../Map/GameMap.hpp"
-#include "../TextureFactory.hpp"
+#include "../GameState/TextureFactory.hpp"
 #include <math.h>
 /**
  * @brief Controls all attributes of the player and its sprite

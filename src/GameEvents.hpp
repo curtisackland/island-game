@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <memory>
 #include <unordered_map>
 
 class GameEntity;
@@ -8,7 +8,7 @@ class GameEvents {
 public:
     typedef std::unordered_map<int, std::shared_ptr<GameEntity>> ENTITY_MAP;
     typedef ENTITY_MAP UPDATE_ENTITIES_LIST_TYPE;
-    typedef std::map<int, ENTITY_MAP> DRAW_ENTITIES_LIST_TYPE;
+    typedef std::unordered_map<int, ENTITY_MAP> DRAW_ENTITIES_LIST_TYPE;
 private:
     UPDATE_ENTITIES_LIST_TYPE updateEntitiesList;
     DRAW_ENTITIES_LIST_TYPE drawEntitiesList;

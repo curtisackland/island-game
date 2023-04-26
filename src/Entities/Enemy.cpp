@@ -3,7 +3,7 @@
 Enemy::Enemy(GameEntity::ID_TYPE id, std::shared_ptr<GameEntity> target, int layer)
     : GameEntity(id, layer)
 {
-    this->setTexture(*TextureFactory::getTexture("resources/images/enemy.png"));
+    this->setTexture(*GameState::getInstance().getTextureFactory().getTexture("resources/images/enemy.png"));
     loadConfigs();
     this->setPathFindingTarget(target);
 }
@@ -114,7 +114,7 @@ const boost::json::object& Enemy::getMyConfigFile()
 void Enemy::loadConfigs()
 {
     this->speed = this->getMyConfigFile().at("speed").as_double();
-    this->setTexture(*TextureFactory::getTexture(this->getMyConfigFile().at("default_texture").as_string().c_str()));
+    this->setTexture(*GameState::getInstance().getTextureFactory().getTexture(this->getMyConfigFile().at("default_texture").as_string().c_str()));
 }
 
 double Enemy::calculateHeuristic(int x1, int y1, int x2, int y2)

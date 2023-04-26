@@ -1,3 +1,4 @@
+#pragma once
 #include "../EntityManager.hpp"
 
 class FactoryBaseClass {

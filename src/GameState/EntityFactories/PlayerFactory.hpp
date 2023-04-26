@@ -1,3 +1,4 @@
+#pragma once
 #include "FactoryBaseClass.hpp"
 #include "../EntityManager.hpp"
 #include "../../Entities/Player.hpp"

@@ -1,7 +1,21 @@
 #include "GameState.hpp"
 
+GameState* GameState::instance = nullptr;
+
 GameState::GameState() {
-    GameState::instance = std::make_unique<GameState>();
+
+}
+
+GameState::~GameState() {
+
+}
+
+GameState& GameState::getInstance() {
+    if (instance) {
+        return *instance;
+    } else {
+        instance = new GameState();
+    }
 }
 
 void GameState::setup(unsigned int windowWidth, unsigned int windowHeight) {
@@ -15,4 +29,5 @@ void GameState::destroy() {
     this->maps.release();
     this->mainView.release();
     this->mainWindow.release();
+    delete GameState::instance;
 }

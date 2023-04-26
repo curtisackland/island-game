@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_SUITE(GameEventsTestSuite)
 
 BOOST_AUTO_TEST_CASE(CreateGameEventsWithEntity) {
     auto events = std::make_shared<GameEvents>();
-    auto entity = std::make_shared<GameEntityTest>(nullptr, 0);
+    auto entity = std::make_shared<GameEntityTest>(0, 0);
     events->addUpdateEntity(entity);
     BOOST_CHECK(events->updateListContains(*entity.get()));
     events->removeUpdateEntity(*entity.get());
@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_CASE(CreateGameEventsWithEntity) {
 
 BOOST_AUTO_TEST_CASE(CheckNoNotify) {
     auto events = std::make_shared<GameEvents>();
-    auto entity = std::make_shared<GameEntityTest>(nullptr, 0);
+    auto entity = std::make_shared<GameEntityTest>(0, 0);
     events->addUpdateEntity(entity);
     BOOST_CHECK(!entity->getInternalVariable());
     events->removeUpdateEntity(*entity.get());
@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(CheckNoNotify) {
 
 BOOST_AUTO_TEST_CASE(CheckNotify) {
     auto events = std::make_shared<GameEvents>();
-    auto entity = std::make_shared<GameEntityTest>(nullptr, 0);
+    auto entity = std::make_shared<GameEntityTest>(0, 0);
     events->addUpdateEntity(entity);
     events->notifyAll();
     BOOST_CHECK(entity->getInternalVariable());
@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(CheckNotify) {
 
 BOOST_AUTO_TEST_CASE(CheckNoDrawNotify) {
     auto events = std::make_shared<GameEvents>();
-    auto entity = std::make_shared<GameEntityTest>(nullptr, 0);
+    auto entity = std::make_shared<GameEntityTest>(0, 0);
     events->addUpdateEntity(entity);
     BOOST_CHECK(!entity->getInternalVariable2());
     events->removeUpdateEntity(*entity.get());
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(CheckNoDrawNotify) {
 
 BOOST_AUTO_TEST_CASE(CheckDrawNotify) {
     auto events = std::make_shared<GameEvents>();
-    auto entity = std::make_shared<GameEntityTest>(nullptr, 0);
+    auto entity = std::make_shared<GameEntityTest>(0, 0);
     events->addDrawEntity(entity, 0);
     events->notifyAll();
     BOOST_CHECK(entity->getInternalVariable2());
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(CheckDrawNotify) {
 
 BOOST_AUTO_TEST_CASE(CheckDestroyEntity) {
     auto events = std::make_shared<GameEvents>();
-    auto entity = std::make_shared<GameEntityTest>(nullptr, 0);
+    auto entity = std::make_shared<GameEntityTest>(0, 0);
     events->addUpdateEntity(entity);
     BOOST_CHECK(events->updateListContains(*entity.get()));
 
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(CheckDestroyEntities) {
     int const testSize = 1000;
 
     for (int i = 0; i < testSize; ++i) {
-        entityVector->push_back(std::make_shared<GameEntityTest>(nullptr, 0));
+        entityVector->push_back(std::make_shared<GameEntityTest>(0, 0));
         events->addUpdateEntity(entityVector->back());
     }
 
