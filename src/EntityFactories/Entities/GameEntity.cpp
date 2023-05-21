@@ -1,5 +1,5 @@
 #include "GameEntity.hpp"
-#include "../GameEvents.hpp"
+#include "GameState/GameEvents.hpp"
 
 GameEntity::GameEntity(GameEntity::ID_TYPE id, int layer) {
     this->id = id;

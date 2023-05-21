@@ -1,6 +1,6 @@
 #include "common/boost_test.hpp"
 
-#include "../src/GameState/TextureFactory.hpp"
+#include "GameState/TextureFactory.hpp"
 
 BOOST_AUTO_TEST_SUITE(TextureFactoryTestSuite, * boost::unit_test::enable_if<!SKIP_SFML_TESTS>())
 

@@ -1,7 +1,7 @@
 #include "common/boost_test.hpp"
 #include "common/classes/GameEntityTest.hpp"
 
-//#include "../src/Entities/GameEntity.hpp"
+//#include "src/Entities/GameEntity.hpp"
 
 BOOST_AUTO_TEST_SUITE(GameEntityTestSuite)
 

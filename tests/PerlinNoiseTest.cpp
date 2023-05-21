@@ -2,9 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../src/Noise/LayeredNoise2D.hpp"
-#include "../src/Noise/Perlin/Noise2DPerlin.hpp"
-#include "../src/Noise/HighCenter/Noise2DHighCenter.hpp"
+#include "Noise/LayeredNoise2D.hpp"
+#include "Noise/Perlin/Noise2DPerlin.hpp"
+#include "Noise/HighCenter/Noise2DHighCenter.hpp"
 
 BOOST_AUTO_TEST_SUITE(PerlinNoiseTest)
 

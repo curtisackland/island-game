@@ -1,5 +1,5 @@
 #include "Tile.hpp"
-#include "../GameConfig.hpp"
+#include "GameConfig.hpp"
 #include <vector>
 #include <array>
 class MapChunk {

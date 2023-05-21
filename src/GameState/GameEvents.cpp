@@ -1,4 +1,4 @@
-#include "Entities/GameEntity.hpp"
+#include "EntityFactories/Entities/GameEntity.hpp"
 #include "GameEvents.hpp"
 
 GameEvents::~GameEvents() {

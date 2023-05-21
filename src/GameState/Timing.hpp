@@ -8,6 +8,6 @@ private:
 public:
     Timing() = default;
     ~Timing() = default;
-    const float getDeltaTime() const;
+    float getDeltaTime() const;
     void resetTimer();
 };

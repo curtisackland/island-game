@@ -13,7 +13,6 @@ private:
     UPDATE_ENTITIES_LIST_TYPE updateEntitiesList;
     DRAW_ENTITIES_LIST_TYPE drawEntitiesList;
 public:
-    
 
     GameEvents() = default;
     ~GameEvents();

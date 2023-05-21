@@ -2,8 +2,8 @@
 #include <memory>
 #include "GameMap.hpp"
 #include "Tile.hpp"
-#include "../Noise/LayeredNoise2D.hpp"
-#include "../Noise/Perlin/Noise2DPerlin.hpp"
+#include "Noise/LayeredNoise2D.hpp"
+#include "Noise/Perlin/Noise2DPerlin.hpp"
 
 class CaveMap : public GameMap{
 private:

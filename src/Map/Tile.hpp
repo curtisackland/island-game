@@ -1,8 +1,8 @@
 #pragma once
 #include <string.h>
 #include <SFML/Graphics.hpp>
-#include "../GameState/TextureFactory.hpp"
-#include "../GameConfig.hpp"
+#include "GameState/TextureFactory.hpp"
+#include "GameConfig.hpp"
 
 /**
  * @brief Controls all attributes of the tile and its sprite

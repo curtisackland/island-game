@@ -33,7 +33,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/build/test",
-        "args": [],
+        "args": ["--log_level=unit_scope"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "environment": [],

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../src/Entities/GameEntity.hpp"
+#include "EntityFactories/Entities/GameEntity.hpp"
 class GameEntityTest : public GameEntity {
 private:
     bool internalVariable = false;
@@ -9,6 +9,6 @@ public:
     ~GameEntityTest();
     void update();
     void draw();
-    inline bool getInternalVariable(){return this->internalVariable;}
-    inline bool getInternalVariable2(){return this->internalVariable2;}
+    bool getInternalVariable(){return this->internalVariable;}
+    bool getInternalVariable2(){return this->internalVariable2;}
 };

@@ -1,6 +1,6 @@
 #include "Timing.hpp"
 
-const float Timing::getDeltaTime() const{
+float Timing::getDeltaTime() const {
     return this->deltaTime;
 }
 

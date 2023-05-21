@@ -1,6 +1,6 @@
 #include "common/boost_test.hpp"
 
-#include "../src/GameConfig.hpp"
+#include "GameConfig.hpp"
 
 BOOST_AUTO_TEST_SUITE(GameConfigTestSuite)
 

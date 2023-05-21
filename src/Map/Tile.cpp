@@ -1,5 +1,5 @@
 #include "Tile.hpp"
-#include "../GameState/GameState.hpp"
+#include "GameState/GameState.hpp"
 
 #define RESOURCES_IMAGES_GRASS 0
 #define RESOURCES_IMAGES_GRASS_PATH "resources/images/grass.png"

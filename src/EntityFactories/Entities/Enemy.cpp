@@ -142,5 +142,5 @@ std::shared_ptr<GameEntity> Enemy::getPathFindingTarget() {
     if (ret)
         return ret;
     else
-        throw std::out_of_range("No pathfinding target");
+        return nullptr;
 }

@@ -2,32 +2,28 @@
 
 GameState* GameState::instance = nullptr;
 
-GameState::GameState() {
-
-}
-
-GameState::~GameState() {
-
-}
-
 GameState& GameState::getInstance() {
-    if (instance) {
-        return *instance;
-    } else {
-        instance = new GameState();
+    if (!GameState::instance) {
+        throw std::runtime_error("GameState instance has not been initialized");
     }
+    return *GameState::instance;
 }
 
 void GameState::setup(unsigned int windowWidth, unsigned int windowHeight) {
-    this->mainWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(windowWidth, windowHeight), "Island Game");
-    this->mainView = std::make_unique<sf::View>();
-    this->mainView->setSize(this->mainWindow->getSize().x, this->mainWindow->getSize().y);
-    this->maps = std::make_unique<std::vector<std::unique_ptr<GameMap>>>();
+    if (GameState::instance) { // Delete instance if it already exists
+        destroyInstance();
+        GameState::instance = nullptr;
+    }
+
+    GameState::instance = new GameState();
+    getInstance(); // Create new instance
+
+    instance->mainWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(windowWidth, windowHeight), "Island Game");
+    instance->mainView = std::make_unique<sf::View>();
+    instance->mainView->setSize(instance->mainWindow->getSize().x, instance->mainWindow->getSize().y);
+    instance->maps = std::make_unique<std::vector<std::unique_ptr<GameMap>>>();
 }
 
-void GameState::destroy() {
-    this->maps.release();
-    this->mainView.release();
-    this->mainWindow.release();
+void GameState::destroyInstance() {
     delete GameState::instance;
 }

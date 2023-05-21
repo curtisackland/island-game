@@ -1,10 +1,11 @@
 #pragma once
+#include <boost/json.hpp>
 #include <SFML/Graphics.hpp>
-#include "../GameConfig.hpp"
+#include "GameConfig.hpp"
 #include "GameEntity.hpp"
-#include "../GameState/GameState.hpp"
-#include "../Map/GameMap.hpp"
-#include "../GameState/TextureFactory.hpp"
+#include "GameState/GameState.hpp"
+#include "Map/GameMap.hpp"
+#include "GameState/TextureFactory.hpp"
 #include <math.h>
 /**
  * @brief Controls all attributes of the player and its sprite

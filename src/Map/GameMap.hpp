@@ -2,7 +2,7 @@
 #define GameMap_h
 
 #include "MapChunk.hpp"
-#include "../GameConfig.hpp"
+#include "GameConfig.hpp"
 #include <map>
 /**
  * @brief Controls all the attributes of the map: tiles, generation, etc.

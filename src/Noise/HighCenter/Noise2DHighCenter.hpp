@@ -17,18 +17,18 @@ public:
     ~Noise2DHighCenter() = default;
     double noise(double x, double y) const;
     
-    inline double getFrequency() const {return this->frequency;}
-    inline void setFrequency(double const frequency) {this->frequency = frequency;}
+    double getFrequency() const {return this->frequency;}
+    void setFrequency(double const frequency) {this->frequency = frequency;}
     
-    inline double getAmplitude() const {return this->amplitude;}
-    inline void setAmplitude(double const amplitude) {this->amplitude = amplitude;}
+    double getAmplitude() const {return this->amplitude;}
+    void setAmplitude(double const amplitude) {this->amplitude = amplitude;}
 
-    inline double getBias() const {return this->bias;}
-    inline void setBias(double const bias) {this->bias = bias;}
+    double getBias() const {return this->bias;}
+    void setBias(double const bias) {this->bias = bias;}
 
-    inline double getXOffset() const {return this->xOffset;}
-    inline void setXOffset(double const xOffset) {this->xOffset = xOffset;}
+    double getXOffset() const {return this->xOffset;}
+    void setXOffset(double const xOffset) {this->xOffset = xOffset;}
 
-    inline double getYOffset() const {return this->yOffset;}
-    inline void setYOffset(double const yOffset) {this->yOffset = yOffset;}
+    double getYOffset() const {return this->yOffset;}
+    void setYOffset(double const yOffset) {this->yOffset = yOffset;}
 };

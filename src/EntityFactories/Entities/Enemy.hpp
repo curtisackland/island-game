@@ -1,11 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../GameState/TextureFactory.hpp"
+#include "GameState/TextureFactory.hpp"
 #include "GameEntity.hpp"
-#include "../Map/GameMap.hpp"
-#include "../GameConfig.hpp"
-#include "../GameState/GameState.hpp"
-#include "../PathFindingNode.hpp"
+#include "Map/GameMap.hpp"
+#include "GameConfig.hpp"
+#include "GameState/GameState.hpp"
+#include "PathFindingNode.hpp"
 #include <stdio.h>
 #include <queue>
 #include <vector>
@@ -27,8 +27,8 @@ class Enemy : public GameEntity {
         int getTextureWidth(); // returns the width of the texture
         void update();
         void draw();
-        inline void setPathFindingTarget(const std::shared_ptr<GameEntity>& target) {this->pathfindingTarget = target;}
-        inline std::shared_ptr<GameEntity> getPathFindingTarget();
+        void setPathFindingTarget(const std::shared_ptr<GameEntity>& target) {this->pathfindingTarget = target;}
+        std::shared_ptr<GameEntity> getPathFindingTarget();
         const boost::json::object& getMyConfigFile();
         void loadConfigs();
 };
