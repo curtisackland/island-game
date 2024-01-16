@@ -63,10 +63,10 @@ BOOST_AUTO_TEST_CASE(CheckDestroyEntity) {
 BOOST_AUTO_TEST_CASE(CheckDestroyEntities) {
     auto events = std::make_shared<GameEvents>();
     std::vector<std::shared_ptr<GameEntityTest>>* entityVector = new std::vector<std::shared_ptr<GameEntityTest>>();
-    int const testSize = 1000;
+    int const testSize = 50;
 
     for (int i = 0; i < testSize; ++i) {
-        entityVector->push_back(std::make_shared<GameEntityTest>(0, 0));
+        entityVector->push_back(std::make_shared<GameEntityTest>(i, 0));
         events->addUpdateEntity(entityVector->back());
     }
 

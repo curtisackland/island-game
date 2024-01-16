@@ -28,6 +28,7 @@ BOOST_AUTO_TEST_CASE(LoadSecondTexture) {
 
 BOOST_AUTO_TEST_CASE(MissingImage) {
     TextureFactory tf;
+    tf.setNoTextureImagePath("tests/common/resources/grass.png");
     BOOST_CHECK_NO_THROW(tf.getTexture("nofile"));
 }
 

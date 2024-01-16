@@ -23,7 +23,8 @@ private:
      * @brief Map of textures to be cached.
      * 
      */
-    static std::unordered_map<std::string, sf::Texture*> textures;
+    std::unordered_map<std::string, sf::Texture*> textures;
+    std::string noTextureImagePath = std::string("resources/images/no-texture.png");
     bool throwOnMissingImage;
 
 public:
@@ -38,4 +39,6 @@ public:
     sf::Texture* getTexture(std::string key);
     bool getThrowOnMissingImage() {return throwOnMissingImage;}
     void setThrowOnMissingImage(bool set) {throwOnMissingImage = set;}
+    std::string getNoTextureImagePath() {return noTextureImagePath;}
+    void setNoTextureImagePath(const std::string& noTextureImagePath) {this->noTextureImagePath = noTextureImagePath;}
 };
