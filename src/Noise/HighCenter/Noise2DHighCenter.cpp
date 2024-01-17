@@ -8,11 +8,7 @@ Noise2DHighCenter::Noise2DHighCenter(double frequency, double amplitude, double 
     this->setYOffset(yOffset);
 }
 
-Noise2DHighCenter::~Noise2DHighCenter() {
-
-}
-
-double Noise2DHighCenter::noise(double x, double y) {
+double Noise2DHighCenter::noise(double x, double y) const {
     x = x + xOffset;
     y = y + yOffset;
     double dist = sqrt(x * x + y * y);

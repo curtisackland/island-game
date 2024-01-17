@@ -13,7 +13,7 @@ Noise2DPerlin::~Noise2DPerlin() {
 
 }
 
-int Noise2DPerlin::permutationArray[] = { 151,160,137,91,90,15,
+const int Noise2DPerlin::permutationArray[] = { 151,160,137,91,90,15,
     131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
     190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
     88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,134,139,48,27,166,
@@ -28,7 +28,7 @@ int Noise2DPerlin::permutationArray[] = { 151,160,137,91,90,15,
     138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
 };
 
-double Noise2DPerlin::noise(double x, double y) {
+double Noise2DPerlin::noise(double x, double y) const {
     x = (x + this->xOffset) * this->getFrequency();
     y = (y + this->yOffset) * this->getFrequency();
     int xMod = ((int) floorf64(x)) & 255; // Mod 256
@@ -44,14 +44,14 @@ double Noise2DPerlin::noise(double x, double y) {
     double w = fade(zFactor);
 
     // Calculate permutations of corners of the square (hashing)
-    int bul = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod) + yMod) + zMod);
-    int bur = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod + 1) + yMod) + zMod);
-    int bdl = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod) + yMod + 1) + zMod);
-    int bdr = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod + 1) + yMod + 1) + zMod);
-    int ful = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod) + yMod) + zMod + 1);
-    int fur = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod + 1) + yMod) + zMod + 1);
-    int fdl = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod) + yMod + 1) + zMod + 1);
-    int fdr = Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(Noise2DPerlin::getPermutationArray(xMod + 1) + yMod + 1) + zMod + 1);
+    int bul = getPermutationArray(getPermutationArray(getPermutationArray(xMod) + yMod) + zMod);
+    int bur = getPermutationArray(getPermutationArray(getPermutationArray(xMod + 1) + yMod) + zMod);
+    int bdl = getPermutationArray(getPermutationArray(getPermutationArray(xMod) + yMod + 1) + zMod);
+    int bdr = getPermutationArray(getPermutationArray(getPermutationArray(xMod + 1) + yMod + 1) + zMod);
+    int ful = getPermutationArray(getPermutationArray(getPermutationArray(xMod) + yMod) + zMod + 1);
+    int fur = getPermutationArray(getPermutationArray(getPermutationArray(xMod + 1) + yMod) + zMod + 1);
+    int fdl = getPermutationArray(getPermutationArray(getPermutationArray(xMod) + yMod + 1) + zMod + 1);
+    int fdr = getPermutationArray(getPermutationArray(getPermutationArray(xMod + 1) + yMod + 1) + zMod + 1);
     // lerp gradients together
     double x1, x2, y1, y2;
     x1 = Noise2DPerlin::lerp(Noise2DPerlin::grad(bul, xFactor, yFactor, zFactor), Noise2DPerlin::grad(bur, xFactor - 1, yFactor, zFactor), u);
@@ -67,7 +67,7 @@ double Noise2DPerlin::noise(double x, double y) {
     return ret * this->amplitude + this->bias;
 }
 
-int Noise2DPerlin::getPermutationArray(int index) {
+int Noise2DPerlin::getPermutationArray(int index) const {
     return permutationArray[index & 255];  // Mod 256
 }
 
